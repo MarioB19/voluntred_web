@@ -1,17 +1,19 @@
 import React from 'react';
-import { Box, Typography, Card, CardContent, CardMedia, useMediaQuery, IconButton } from '@mui/material';
+import { Box, Typography, Card, useMediaQuery, useTheme } from '@mui/material';
 import Carousel from 'react-material-ui-carousel';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 
 const Inicio = () => {
-  const isMobile = useMediaQuery('(max-width:600px)');
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+
   const items = [
     {
       name: "Video de presentación",
       description: "Pitch de Presentación | VoluntRED",
       type: "video",
-      src: "https://drive.google.com/file/d/1v9r4Rc1DVG90NPOipUkCugQxIM7LR8hK/preview"
+      src: "https://www.youtube-nocookie.com/embed/1XVrmduzO2o?si=E99rB0id-IsLosmy"
     },
     {
       name: "Quiénes Somos",
@@ -34,40 +36,77 @@ const Inicio = () => {
   ];
 
   return (
-    <Box id = "inicio" sx={{ width: '100%', minHeight: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center', bgcolor: 'background.default', mt: 8 }}>
+    <Box id="inicio" sx={{ 
+      width: '100%', 
+      minHeight: '100vh', 
+      display: 'flex', 
+      justifyContent: 'center', 
+      alignItems: 'center', 
+      bgcolor: 'background.default', 
+      mt: 8, 
+      px: { xs: 4, sm: 6, md: 8 },
+      position: 'relative'
+    }}>
       <Carousel
         animation="slide"
         navButtonsAlwaysVisible
         autoPlay={false}
-        sx={{ width: '90%', height: '90%' }}
+        fullHeightHover={false}
+        sx={{ 
+          width: '100%', 
+          maxWidth: '1200px',
+        }}
         indicatorContainerProps={{
           style: {
             marginTop: '20px',
+            zIndex: 1,
           }
         }}
-        navButtonsProps={{
-          style: {
-            backgroundColor: 'transparent',
-            color: '#000',
-            '&:hover': {
-              backgroundColor: 'transparent',
-              color: '#000',
-            },
-            zIndex: 10,
-            fontSize: '2rem'
-          }
+        NavButton={({ onClick, className, style, next, prev }) => {
+          return (
+            <Box
+              onClick={onClick}
+              className={className}
+              sx={{
+                position: 'absolute',
+                top: '50%',
+                transform: 'translateY(-50%)',
+                zIndex: 2,
+                bgcolor: 'rgba(0, 0, 0, 0.5)',
+                color: theme.palette.mode === 'dark' ? 'white' : 'black',
+                borderRadius: '50%',
+                p: 1,
+                cursor: 'pointer',
+                '&:hover': {
+                  bgcolor: 'rgba(0, 0, 0, 0.7)',
+                },
+                left: next ? 'auto' : { xs: 4, sm: -10 },
+                right: prev ? 'auto' : { xs: 4, sm: -10 },
+              }}
+            >
+              {next && <NavigateNextIcon sx={{ fontSize: { xs: 30, sm: 40 } }} />}
+              {prev && <NavigateBeforeIcon sx={{ fontSize: { xs: 30, sm: 40 } }} />}
+            </Box>
+          )
         }}
-        PrevIcon={<NavigateBeforeIcon sx={{ fontSize: 60 }} />}
-        NextIcon={<NavigateNextIcon sx={{ fontSize: 60 }} />}
       >
         {items.map((item, index) => (
-          <Card key={index} sx={{ height: '100%', display: 'flex', flexDirection: isMobile ? 'column' : 'row', overflow: 'hidden', boxShadow: 3, borderRadius: 4 }}>
-           {item.type === 'video' ? (
+          <Card key={index} sx={{ 
+            height: '100%', 
+            display: 'flex', 
+            flexDirection: 'column', 
+            overflow: 'hidden', 
+            boxShadow: 3, 
+            borderRadius: 4, 
+            bgcolor: theme.palette.mode === 'dark' ? 'black' : 'white',
+            mx: { xs: 2, sm: 4 },
+          }}>
+            {item.type === 'video' ? (
               <>
-                <Box sx={{ width: '100%', paddingTop: '56.25%', position: 'relative', height: '0', overflow: 'hidden' }}>
-                  <CardMedia
-                    component="iframe"
-                    sx={{
+                <Box sx={{ width: '100%', paddingTop: '56.25%', position: 'relative' }}>
+                  <iframe
+                    src={item.src}
+                    style={{
                       position: 'absolute',
                       top: 0,
                       left: 0,
@@ -75,40 +114,45 @@ const Inicio = () => {
                       height: '100%',
                       border: 'none',
                     }}
-                    src={item.src}
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
+                    title={item.name}
                   />
                 </Box>
-                <CardContent sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', p: 4 }}>
-                  <Typography gutterBottom variant="h3" component="div" color="primary.main" fontWeight="bold" sx={{ mt: 2, textAlign: 'center' }}>
+                <Box sx={{ p: 4, textAlign: 'center' }}>
+                  <Typography variant={isMobile ? "h5" : "h4"} component="div" sx={{ color: theme.palette.mode === 'dark' ? 'white' : 'black', fontWeight: 'bold' }}>
                     {item.name}
                   </Typography>
-                  <Typography variant="h5" color="text.secondary" sx={{ mt: 2, textAlign: 'center' }}>
+                  <Typography variant={isMobile ? "h6" : "h5"} sx={{ color: '#4CAF50', mt: 2, fontWeight: 'bold' }}>
                     {item.description}
                   </Typography>
-                </CardContent>
+                </Box>
               </>
-            )  : (
+            ) : (
               <Box sx={{ display: 'flex', flexDirection: isMobile ? 'column' : 'row', height: '100%' }}>
-                <CardMedia
-                  component="img"
-                  sx={{
-                    width: isMobile ? '100%' : '50%',
-                    height: isMobile ? 'auto' : '100%',
-                    objectFit: 'cover',
-                  }}
-                  image={item.image}
-                  alt={item.name}
-                />
-                <CardContent sx={{ width: isMobile ? '100%' : '50%', display: 'flex', flexDirection: 'column', justifyContent: 'center', p: 4, textAlign: 'center' }}>
-                  <Typography gutterBottom variant="h3" component="div" color="primary.main" fontWeight="bold">
+                <Box sx={{
+                  width: isMobile ? '100%' : '50%',
+                  height: isMobile ? '200px' : 'auto',
+                  backgroundImage: `url(${item.image})`,
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                }}/>
+                <Box sx={{ 
+                  width: isMobile ? '100%' : '50%', 
+                  p: 4, 
+                  display: 'flex', 
+                  flexDirection: 'column', 
+                  justifyContent: 'center', 
+                  alignItems: 'center',
+                  bgcolor: theme.palette.mode === 'dark' ? 'black' : 'white',
+                }}>
+                  <Typography variant={isMobile ? "h5" : "h4"} component="div" sx={{ color: theme.palette.mode === 'dark' ? 'white' : 'black', fontWeight: 'bold', textAlign: 'center' }}>
                     {item.name}
                   </Typography>
-                  <Typography variant="body1" color="text.secondary" sx={{ mt: 2, lineHeight: 1.8 }}>
+                  <Typography variant={isMobile ? "h6" : "h5"} sx={{ color: '#4CAF50', mt: 2, textAlign: 'justify', fontWeight: 'bold' }}>
                     {item.description}
                   </Typography>
-                </CardContent>
+                </Box>
               </Box>
             )}
           </Card>
