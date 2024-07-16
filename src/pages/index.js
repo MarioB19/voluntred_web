@@ -8,6 +8,7 @@ import Impacto from '../components/Impacto';
 import Equipo from '../components/Equipo';
 import Involucrate from '../components/Involucrate';
 import Contacto from '../components/Contacto';
+import Footer from '@/components/Footer';
 
 export default function Home({ toggleDarkMode, darkMode }) {
   return (
@@ -21,7 +22,10 @@ export default function Home({ toggleDarkMode, darkMode }) {
         <Equipo />
         <Involucrate />
         <Contacto />
+        
+        
       </Container>
+      <Footer/>
     </div>
   );
 }

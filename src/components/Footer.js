@@ -1,57 +1,56 @@
-import Image from 'next/image';
+import React from 'react';
+import { Box, Typography, IconButton, Grid, Link, useTheme } from '@mui/material';
+import InstagramIcon from '@mui/icons-material/Instagram';
+import YouTubeIcon from '@mui/icons-material/YouTube';
+import { FaTiktok } from 'react-icons/fa';
+import Image from 'next/image'; // Utilizando Image de Next.js para optimizar la carga de imágenes
 import logo from '../../public/logo.png';
-import Link from 'next/link';
-import { useState, useEffect } from 'react';
-import { FaMoon, FaSun, FaBars } from 'react-icons/fa';
 
-export default function Header() {
-  const [darkMode, setDarkMode] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
-
-  useEffect(() => {
-    if (darkMode) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-  }, [darkMode]);
-
-  const toggleDarkMode = () => {
-    setDarkMode(!darkMode);
-  };
-
-  const toggleMenu = () => {
-    setMenuOpen(!menuOpen);
+export default function Footer() {
+  const theme = useTheme();
+  const socialLinks = {
+    Instagram: 'https://instagram.com',
+    YouTube: 'https://youtube.com',
+    TikTok: 'https://tiktok.com'
   };
 
   return (
-    <header className="w-full bg-surface py-4 px-8 fixed top-0 left-0 z-50 dark:bg-surfaceDark">
-      <div className="flex justify-between items-center">
-        <div className="flex items-center">
-          <Image src={logo} alt="VoluntRED Logo" width={40} height={40} />
-          <span className="ml-2 text-2xl font-bold text-">VoluntRED</span>
-        </div>
-        <div className="md:hidden">
-          <button onClick={toggleMenu} className="text-black dark:text-white">
-            <FaBars size={24} />
-          </button>
-        </div>
-        <nav className={`md:flex md:items-center ${menuOpen ? 'block' : 'hidden'} md:block`}>
-          <ul className="flex flex-col md:flex-row md:space-x-8 text-lg">
-            <li><Link href="#inicio" className="block py-2 px-4 text-black dark:text-white hover:text-primary dark:hover:text-primary transition">Inicio</Link></li>
-            <li><Link href="#que-hacemos" className="block py-2 px-4 text-black dark:text-white hover:text-primary dark:hover:text-primary transition">Qué hacemos</Link></li>
-            <li><Link href="#beneficios" className="block py-2 px-4 text-black dark:text-white hover:text-primary dark:hover:text-primary transition">Beneficios</Link></li>
-            <li><Link href="#preguntas-frecuentes" className="block py-2 px-4 text-black dark:text-white hover:text-primary dark:hover:text-primary transition">Preguntas Frecuentes</Link></li>
-            <li><Link href="#impacto" className="block py-2 px-4 text-black dark:text-white hover:text-primary dark:hover:text-primary transition">Impacto</Link></li>
-            <li><Link href="#equipo" className="block py-2 px-4 text-black dark:text-white hover:text-primary dark:hover:text-primary transition">Nuestro Equipo</Link></li>
-            <li><Link href="#involucrate" className="block py-2 px-4 text-black dark:text-white hover:text-primary dark:hover:text-primary transition">Involúcrate</Link></li>
-            <li><Link href="#contacto" className="block py-2 px-4 text-black dark:text-white hover:text-primary dark:hover:text-primary transition">Contáctanos</Link></li>
-          </ul>
-          <button onClick={toggleDarkMode} className="ml-4 bg-primary p-2 rounded-full text-white hover:bg-opacity-75 transition">
-            {darkMode ? <FaSun /> : <FaMoon />}
-          </button>
-        </nav>
-      </div>
-    </header>
+    <Box
+      sx={{
+        bgcolor: theme.palette.mode === 'dark' ? theme.palette.grey[900] : 'red', // Fondo rojo en modo claro, gris oscuro en modo oscuro
+        color: theme.palette.mode === 'dark' ? theme.palette.grey[300] : 'white', // Texto blanco en modo claro, gris en modo oscuro
+        p: 3,
+        mt: 2,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center'
+      }}
+    >
+      <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
+        <Image src={logo} alt="Logo" width={75} height={75} />
+        <Typography variant="h6" sx={{ flexGrow: 1, ml: 2, fontSize: '1.3rem', color: 'inherit' }}>
+          <span style={{ color: 'inherit' }}>Volunt</span>
+          <span style={{ color: 'inherit', fontWeight: 'bold' }}>RED</span>
+        </Typography>
+      </Box>
+      <Grid container justifyContent="center" spacing={1}>
+        {Object.entries(socialLinks).map(([platform, url]) => (
+          <Grid item key={platform}>
+            <Link href={url} target="_blank" rel="noopener noreferrer">
+              <IconButton sx={{ color: 'inherit' }}>
+                {platform === 'Instagram' && <InstagramIcon sx={{ width: 35, height: 35 }} />}
+                {platform === 'YouTube' && <YouTubeIcon sx={{ width: 35, height: 35 }} />}
+                {platform === 'TikTok' && <FaTiktok style={{ width: 35, height: 35 }} />}
+              </IconButton>
+
+            </Link>
+          </Grid>
+        ))}
+      </Grid>
+      <Typography variant="caption" sx={{ mt: 3, fontSize: '1.2rem', color: 'inherit' }}>
+        © 2024 VoluntRED. Todos los derechos reservados.
+      </Typography>
+    </Box>
   );
 }
