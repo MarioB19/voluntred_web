@@ -1,10 +1,12 @@
 import Head from 'next/head';
-import Header from '../components/Header';
-import About from '../components/About';
-import HowItWorks from '../components/HowItWorks';
-import Features from '../components/Features';
-
-import GetInvolved from '../components/GetInvolved';
+import Navbar from '../components/Navbar';
+import Inicio from '../components/Inicio';
+import QueHacemos from '../components/QueHacemos';
+import Beneficios from '../components/Beneficios';
+import PreguntasFrecuentes from '../components/PreguntasFrecuentes';
+import Impacto from '../components/Impacto';
+import Equipo from '../components/Equipo';
+import Involucrate from '../components/Involucrate';
 import Contact from '../components/Contact';
 import Footer from '../components/Footer';
 
@@ -14,15 +16,18 @@ export default function Home() {
       <Head>
         <title>VoluntRED</title>
         <meta name="description" content="Conéctate con VoluntRED y sé parte del cambio" />
-        <link rel="icon" href="/favicon.ico" />
+       
       </Head>
 
-      <Header />
+      <Navbar />
       <main className="flex flex-col items-center px-4 py-8 space-y-16">
-        <About />
-        <HowItWorks />
-        <Features />
-        <GetInvolved />
+        <Inicio />
+        <QueHacemos />
+        <Beneficios />
+        <PreguntasFrecuentes />
+        <Impacto />
+        <Equipo />
+        <Involucrate />
         <Contact />
       </main>
       <Footer />
