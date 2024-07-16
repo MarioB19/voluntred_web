@@ -29,7 +29,7 @@ export default function Header() {
       <div className="flex justify-between items-center">
         <div className="flex items-center">
           <Image src={logo} alt="VoluntRED Logo" width={40} height={40} />
-          <span className="ml-2 text-2xl font-bold text-primary">VoluntRED</span>
+          <span className="ml-2 text-2xl font-bold text-">VoluntRED</span>
         </div>
         <div className="md:hidden">
           <button onClick={toggleMenu} className="text-black dark:text-white">

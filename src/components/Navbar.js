@@ -1,72 +1,144 @@
-import { useState, useEffect } from 'react';
-import { SunIcon, MoonIcon } from '@heroicons/react/outline';
-import { Link } from 'react-scroll';
+import React, { useState, useEffect } from 'react';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import IconButton from '@mui/material/IconButton';
+import MenuIcon from '@mui/icons-material/Menu';
+import { Box, Drawer, List, ListItem, ListItemText, ListItemIcon, Tooltip } from '@mui/material';
+import { Link as ScrollLink, animateScroll as scroll } from 'react-scroll';
 import Image from 'next/image';
 import logo from '../../public/logo.png';
+import HomeIcon from '@mui/icons-material/Home';
+import InfoIcon from '@mui/icons-material/Info';
+import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
+import GroupIcon from '@mui/icons-material/Group';
+import ContactMailIcon from '@mui/icons-material/ContactMail';
+import EmojiPeopleIcon from '@mui/icons-material/EmojiPeople';
+import StarIcon from '@mui/icons-material/Star';
+import Brightness4Icon from '@mui/icons-material/Brightness4';
+import Brightness7Icon from '@mui/icons-material/Brightness7';
+import { useTheme } from '@mui/material/styles';
 
-export default function Navbar() {
-  const [darkMode, setDarkMode] = useState(false);
+export default function Navbar({ darkMode, toggleDarkMode }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('');
+  const theme = useTheme();
+
+  const toggleDrawer = (open) => () => {
+    setIsOpen(open);
+  };
+
+  const menuItems = [
+    { text: 'Inicio', icon: <HomeIcon />, to: 'inicio' },
+    { text: 'Beneficios', icon: <StarIcon />, to: 'beneficios' },
+    { text: 'Preguntas Frecuentes', icon: <QuestionAnswerIcon />, to: 'preguntas-frecuentes' },
+    { text: 'Impacto', icon: <EmojiPeopleIcon />, to: 'impacto' },
+    { text: 'Nuestro Equipo', icon: <GroupIcon />, to: 'equipo' },
+    { text: 'Involúcrate', icon: <EmojiPeopleIcon />, to: 'involucrate' },
+    { text: 'Contáctanos', icon: <ContactMailIcon />, to: 'contacto' },
+  ];
 
   useEffect(() => {
-    if (darkMode) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-  }, [darkMode]);
+    const handleScroll = () => {
+      const currentPosition = window.pageYOffset;
+      for (const item of menuItems) {
+        const element = document.getElementById(item.to);
+        if (element) {
+          const { offsetTop, offsetHeight } = element;
+          if (currentPosition >= offsetTop && currentPosition < offsetTop + offsetHeight) {
+            setActiveSection(item.to);
+            break;
+          }
+        }
+      }
+    };
 
-  const toggleDarkMode = () => {
-    setDarkMode(!darkMode);
-  };
-
-  const toggleMenu = () => {
-    setIsOpen(!isOpen);
-  };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
-    <nav className="bg-primary dark:bg-surfaceDark p-4 fixed w-full top-0 z-10">
-      <div className="container mx-auto flex justify-between items-center">
-        <div className="flex items-center cursor-pointer" onClick={() => scroll.scrollToTop({ smooth: true, duration: 500 })}>
-          <Image src={logo} alt="Logo" width={40} height={40} className="mr-2" />
-          <div className="text-white font-bold text-lg">VoluntRED</div>
-        </div>
-        <div className="hidden md:flex space-x-4 items-center">
-          <Link to="inicio" smooth={true} duration={500} className="text-white dark:text-gray-300 hover:bg-white dark:hover:bg-gray-700 hover:text-primary dark:hover:text-secondary transition-colors duration-200 cursor-pointer px-3 py-2 rounded-md">Inicio</Link>
-          <Link to="que-hacemos" smooth={true} duration={500} className="text-white dark:text-gray-300 hover:bg-white dark:hover:bg-gray-700 hover:text-primary dark:hover:text-secondary transition-colors duration-200 cursor-pointer px-3 py-2 rounded-md">Qué Hacemos</Link>
-          <Link to="beneficios" smooth={true} duration={500} className="text-white dark:text-gray-300 hover:bg-white dark:hover:bg-gray-700 hover:text-primary dark:hover:text-secondary transition-colors duration-200 cursor-pointer px-3 py-2 rounded-md">Beneficios</Link>
-          <Link to="preguntas-frecuentes" smooth={true} duration={500} className="text-white dark:text-gray-300 hover:bg-white dark:hover:bg-gray-700 hover:text-primary dark:hover:text-secondary transition-colors duration-200 cursor-pointer px-3 py-2 rounded-md">Preguntas Frecuentes</Link>
-          <Link to="impacto" smooth={true} duration={500} className="text-white dark:text-gray-300 hover:bg-white dark:hover:bg-gray-700 hover:text-primary dark:hover:text-secondary transition-colors duration-200 cursor-pointer px-3 py-2 rounded-md">Impacto</Link>
-          <Link to="equipo" smooth={true} duration={500} className="text-white dark:text-gray-300 hover:bg-white dark:hover:bg-gray-700 hover:text-primary dark:hover:text-secondary transition-colors duration-200 cursor-pointer px-3 py-2 rounded-md">Nuestro Equipo</Link>
-          <Link to="involucrate" smooth={true} duration={500} className="text-white dark:text-gray-300 hover:bg-white dark:hover:bg-gray-700 hover:text-primary dark:hover:text-secondary transition-colors duration-200 cursor-pointer px-3 py-2 rounded-md">Involúcrate</Link>
-          <Link to="contacto" smooth={true} duration={500} className="text-white dark:text-gray-300 hover:bg-white dark:hover:bg-gray-700 hover:text-primary dark:hover:text-secondary transition-colors duration-200 cursor-pointer px-3 py-2 rounded-md">Contáctanos</Link>
-          <button onClick={toggleDarkMode} className="bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 p-2 rounded flex items-center justify-center transition-colors duration-200">
-            {darkMode ? <SunIcon className="h-6 w-6 animate-spin" /> : <MoonIcon className="h-6 w-6 animate-pulse" />}
-          </button>
-        </div>
-        <div className="md:hidden flex items-center">
-          <button onClick={toggleMenu} className="text-white">
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16m-7 6h7"></path>
-            </svg>
-          </button>
-        </div>
-      </div>
-      {isOpen && (
-        <div className="md:hidden">
-          <Link to="inicio" smooth={true} duration={500} className="block text-white dark:text-gray-300 hover:bg-white dark:hover:bg-gray-700 hover:text-primary dark:hover:text-secondary transition-colors duration-200 mt-2 cursor-pointer px-3 py-2 rounded-md">Inicio</Link>
-          <Link to="que-hacemos" smooth={true} duration={500} className="block text-white dark:text-gray-300 hover:bg-white dark:hover:bg-gray-700 hover:text-primary dark:hover:text-secondary transition-colors duration-200 mt-2 cursor-pointer px-3 py-2 rounded-md">Qué Hacemos</Link>
-          <Link to="beneficios" smooth={true} duration={500} className="block text-white dark:text-gray-300 hover:bg-white dark:hover:bg-gray-700 hover:text-primary dark:hover:text-secondary transition-colors duration-200 mt-2 cursor-pointer px-3 py-2 rounded-md">Beneficios</Link>
-          <Link to="preguntas-frecuentes" smooth={true} duration={500} className="block text-white dark:text-gray-300 hover:bg-white dark:hover:bg-gray-700 hover:text-primary dark:hover:text-secondary transition-colors duration-200 mt-2 cursor-pointer px-3 py-2 rounded-md">Preguntas Frecuentes</Link>
-          <Link to="impacto" smooth={true} duration={500} className="block text-white dark:text-gray-300 hover:bg-white dark:hover:bg-gray-700 hover:text-primary dark:hover:text-secondary transition-colors duration-200 mt-2 cursor-pointer px-3 py-2 rounded-md">Impacto</Link>
-          <Link to="equipo" smooth={true} duration={500} className="block text-white dark:text-gray-300 hover:bg-white dark:hover:bg-gray-700 hover:text-primary dark:hover:text-secondary transition-colors duration-200 mt-2 cursor-pointer px-3 py-2 rounded-md">Nuestro Equipo</Link>
-          <Link to="involucrate" smooth={true} duration={500} className="block text-white dark:text-gray-300 hover:bg-white dark:hover:bg-gray-700 hover:text-primary dark:hover:text-secondary transition-colors duration-200 mt-2 cursor-pointer px-3 py-2 rounded-md">Involúcrate</Link>
-          <Link to="contacto" smooth={true} duration={500} className="block text-white dark:text-gray-300 hover:bg-white dark:hover:bg-gray-700 hover:text-primary dark:hover:text-secondary transition-colors duration-200 mt-2 cursor-pointer px-3 py-2 rounded-md">Contáctanos</Link>
-          <button onClick={toggleDarkMode} className="bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 p-2 rounded flex items-center justify-center transition-colors duration-200 mt-2">
-            {darkMode ? <SunIcon className="h-6 w-6 animate-spin" /> : <MoonIcon className="h-6 w-6 animate-pulse" />}
-          </button>
-        </div>
-      )}
-    </nav>
+    <AppBar position="fixed" color="primary" sx={{ bgcolor: theme.palette.background.default }}>
+      <Toolbar>
+        <IconButton edge="start" color="inherit" aria-label="menu" onClick={toggleDrawer(true)}>
+          <MenuIcon />
+        </IconButton>
+        <Image src={logo} alt="Logo" width={40} height={40} />
+        <Typography variant="h6" sx={{ flexGrow: 1, ml: 2, color: theme.palette.text.primary }}>
+          VoluntRED
+        </Typography>
+        <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+          {menuItems.map((item) => (
+            <ScrollLink
+              key={item.text}
+              to={item.to}
+              smooth={true}
+              duration={1000}
+              spy={true}
+              activeClass="active"
+              className="nav-link"
+              style={{
+                margin: '0 10px',
+                cursor: 'pointer',
+                color: activeSection === item.to ? theme.palette.primary.main : theme.palette.text.primary,
+                textDecoration: 'none',
+                position: 'relative',
+                padding: '5px 0',
+              }}
+            >
+              {item.text}
+              <Box
+                sx={{
+                  position: 'absolute',
+                  bottom: 0,
+                  left: 0,
+                  width: '100%',
+                  height: '2px',
+                  bgcolor: theme.palette.primary.main,
+                  transform: activeSection === item.to ? 'scaleX(1)' : 'scaleX(0)',
+                  transition: 'transform 0.3s ease',
+                }}
+              />
+            </ScrollLink>
+          ))}
+        </Box>
+        <Tooltip title={darkMode ? "Modo claro" : "Modo oscuro"}>
+          <IconButton onClick={toggleDarkMode} color="inherit" sx={{ ml: 2 }}>
+            {darkMode ? (
+              <Brightness7Icon sx={{ transition: 'transform 0.3s', '&:hover': { transform: 'rotate(180deg)' } }} />
+            ) : (
+              <Brightness4Icon sx={{ transition: 'transform 0.3s', '&:hover': { transform: 'rotate(180deg)' } }} />
+            )}
+          </IconButton>
+        </Tooltip>
+      </Toolbar>
+      <Drawer anchor="left" open={isOpen} onClose={toggleDrawer(false)}>
+        <List sx={{ width: 250 }}>
+          {menuItems.map((item) => (
+            <ListItem 
+              button 
+              key={item.text} 
+              onClick={toggleDrawer(false)}
+              sx={{
+                bgcolor: activeSection === item.to ? theme.palette.action.selected : 'transparent',
+                '&:hover': {
+                  bgcolor: theme.palette.action.hover,
+                },
+              }}
+            >
+              <ListItemIcon>{item.icon}</ListItemIcon>
+              <ScrollLink
+                to={item.to}
+                smooth={true}
+                duration={1000}
+                style={{ textDecoration: 'none', color: 'inherit', width: '100%' }}
+              >
+                <ListItemText primary={item.text} />
+              </ScrollLink>
+            </ListItem>
+          ))}
+        </List>
+      </Drawer>
+    </AppBar>
   );
 }
