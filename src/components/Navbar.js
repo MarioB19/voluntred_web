@@ -9,7 +9,7 @@ import { Link as ScrollLink, animateScroll as scroll } from 'react-scroll';
 import Image from 'next/image';
 import logo from '../../public/logo.png';
 import HomeIcon from '@mui/icons-material/Home';
-import InfoIcon from '@mui/icons-material/Info';
+
 import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
 import GroupIcon from '@mui/icons-material/Group';
 import ContactMailIcon from '@mui/icons-material/ContactMail';
@@ -65,8 +65,9 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
         </IconButton>
         <Image src={logo} alt="Logo" width={40} height={40} />
         <Typography variant="h6" sx={{ flexGrow: 1, ml: 2, color: theme.palette.text.primary }}>
-          VoluntRED
-        </Typography>
+      <span style={{ color: '#FF6666' }}>Volunt</span>
+      <span style={{ color: '#CC0000' }}>RED</span>
+    </Typography>
         <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
           {menuItems.map((item) => (
             <ScrollLink

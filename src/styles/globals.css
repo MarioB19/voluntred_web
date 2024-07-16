@@ -60,3 +60,16 @@ body {
     opacity: 0.5;
   }
 }
+
+.accordionSummary {
+    background-color: #f5f5f5;
+  }
+  
+  .accordionSummary.Mui-expanded {
+    background-color: #e0e0e0;
+  }
+  
+  .accordionDetails {
+    background-color: #ffffff;
+  }
+  

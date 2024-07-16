@@ -23,7 +23,7 @@ const beneficiosAsociaciones = [
 
 const Beneficios = () => {
   return (
-    <Box sx={{ width: '100%', minHeight: '100vh', bgcolor: 'background.default', p: 4 }}>
+    <Box id = "beneficios" sx={{ width: '100%', minHeight: '100vh', bgcolor: 'background.default', p: 4 }}>
       <Typography variant="h3" component="div" color="primary.main" fontWeight="bold" sx={{ mb: 4, textAlign: 'center' }}>
         Beneficios
       </Typography>
