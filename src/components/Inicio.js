@@ -36,6 +36,7 @@ const Inicio = () => {
   ];
 
   return (
+    
     <Box id="inicio" sx={{ 
       width: '100%', 
       minHeight: '100vh', 
@@ -47,6 +48,7 @@ const Inicio = () => {
       px: { xs: 4, sm: 6, md: 8 },
       position: 'relative'
     }}>
+      
       <Carousel
         animation="slide"
         navButtonsAlwaysVisible
