@@ -40,7 +40,7 @@ const Beneficios = () => {
               <ul>
                 {beneficiosVoluntarios.map((beneficio, index) => (
                   <li key={index}>
-                    <Typography variant="body1" color="text.secondary" sx={{ mt: 1, lineHeight: 1.8 }}>
+                    <Typography variant="body1" color="text.secondary" sx={{ mt: 2, lineHeight: 1.8, fontSize: '1.5rem' }}>
                       {beneficio}
                     </Typography>
                   </li>
@@ -61,7 +61,7 @@ const Beneficios = () => {
               <ul>
                 {beneficiosAsociaciones.map((beneficio, index) => (
                   <li key={index}>
-                    <Typography variant="body1" color="text.secondary" sx={{ mt: 1, lineHeight: 1.8 }}>
+                    <Typography variant="body1" color="text.secondary" sx={{ mt: 2, lineHeight: 1.8, fontSize: '1.5rem' }}>
                       {beneficio}
                     </Typography>
                   </li>
