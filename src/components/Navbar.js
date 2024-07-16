@@ -63,11 +63,11 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
         <IconButton edge="start" color="inherit" aria-label="menu" onClick={toggleDrawer(true)}>
           <MenuIcon />
         </IconButton>
-        <Image src={logo} alt="Logo" width={40} height={40} />
+        <Image src={logo} alt="Logo" width={60} height={60} />
         <Typography variant="h6" sx={{ flexGrow: 1, ml: 2, color: theme.palette.text.primary }}>
-      <span style={{ color: '#FF6666' }}>Volunt</span>
-      <span style={{ color: '#CC0000' }}>RED</span>
-    </Typography>
+          <span style={{ color: '#FF6666' }}>Volunt</span>
+          <span style={{ color: '#CC0000' }}>RED</span>
+        </Typography>
         <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
           {menuItems.map((item) => (
             <ScrollLink
@@ -116,9 +116,9 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
       <Drawer anchor="left" open={isOpen} onClose={toggleDrawer(false)}>
         <List sx={{ width: 250 }}>
           {menuItems.map((item) => (
-            <ListItem 
-              button 
-              key={item.text} 
+            <ListItem
+              button
+              key={item.text}
               onClick={toggleDrawer(false)}
               sx={{
                 bgcolor: activeSection === item.to ? theme.palette.action.selected : 'transparent',
