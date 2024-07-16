@@ -1,7 +1,7 @@
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { useState } from 'react';
-
+import Head from 'next/head';
 function MyApp({ Component, pageProps }) {
   const [darkMode, setDarkMode] = useState(false);
 
@@ -26,6 +26,11 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <ThemeProvider theme={theme}>
+          <Head>
+        <title>VoluntRED</title>
+        <link rel="icon" href="../../logo.png" type="image/png" />
+
+      </Head>
       <CssBaseline />
       <Component {...pageProps} darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
     </ThemeProvider>
