@@ -45,24 +45,42 @@ const Inicio = () => {
   ];
 
   return (
-    <Box id="inicio" sx={{ 
-      width: '100%', 
-      minHeight: '100vh', 
-      display: 'flex', 
-      justifyContent: 'center', 
-      alignItems: 'center', 
-      bgcolor: 'background.default', 
-      mt: 8, 
+    <Box id="inicio" sx={{
+      width: '100%',
+      minHeight: '100vh',
+      display: 'flex',
+      flexDirection: 'column',  // Cambiado a column para acomodar el título
+      justifyContent: 'flex-start',  // Cambiado a flex-start
+      alignItems: 'center',
+      bgcolor: 'background.default',
+      mt: 8,
       px: { xs: 4, sm: 6, md: 8 },
       position: 'relative'
     }}>
+
+
+      <Typography
+        variant={isMobile ? "h4" : "h3"}
+        component="h1"
+        sx={{
+          fontWeight: 'bold',
+          textAlign: 'center',
+          mb: 4,
+          mt: 2
+        }}
+      >
+        <span style={{ color: '#4CAF50' }}>Bienvenido a </span>
+        <span style={{ color: '#FF6666' }}>Volunt</span>
+        <span style={{ color: '#CC0000' }}>RED</span>
+      </Typography>
+
       <Carousel
         animation="slide"
         navButtonsAlwaysVisible
         autoPlay={false}
         fullHeightHover={false}
-        sx={{ 
-          width: '100%', 
+        sx={{
+          width: '100%',
           maxWidth: '1200px',
         }}
         indicatorContainerProps={{
@@ -100,13 +118,13 @@ const Inicio = () => {
         }}
       >
         {items.map((item, index) => (
-          <Card key={index} sx={{ 
-            height: '100%', 
-            display: 'flex', 
-            flexDirection: 'column', 
-            overflow: 'hidden', 
-            boxShadow: 3, 
-            borderRadius: 4, 
+          <Card key={index} sx={{
+            height: '100%',
+            display: 'flex',
+            flexDirection: 'column',
+            overflow: 'hidden',
+            boxShadow: 3,
+            borderRadius: 4,
             bgcolor: theme.palette.mode === 'dark' ? 'black' : 'white',
             mx: { xs: 2, sm: 4 },
           }}>
@@ -139,20 +157,20 @@ const Inicio = () => {
                     priority={index === 0}
                   />
                 </Box>
-                <Box sx={{ 
-                  width: isMobile ? '100%' : '50%', 
-                  p: 4, 
-                  display: 'flex', 
-                  flexDirection: 'column', 
-                  justifyContent: 'center', 
+                <Box sx={{
+                  width: isMobile ? '100%' : '50%',
+                  p: 4,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'center',
                   alignItems: 'center',
                   bgcolor: theme.palette.mode === 'dark' ? 'black' : 'white',
                 }}>
                   <Typography variant={isMobile ? "h5" : "h4"} component="div" sx={{ color: '#4CAF50', mt: 2, textAlign: 'center', fontWeight: 'bold' }}>
                     {item.name}
                   </Typography>
-                
-                  <Typography variant={isMobile ? "h6" : "h5"} sx={  { color: theme.palette.mode === 'dark' ? 'white' : 'black', fontWeight: 'bold', textAlign: 'justify' }}>
+
+                  <Typography variant={isMobile ? "h6" : "h5"} sx={{ color: theme.palette.mode === 'dark' ? 'white' : 'black', fontWeight: 'bold', textAlign: 'justify' }}>
                     {item.description}
                   </Typography>
                 </Box>
