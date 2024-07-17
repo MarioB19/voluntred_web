@@ -1,14 +1,29 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { Box, Typography, Card, useMediaQuery, useTheme } from '@mui/material';
 import Carousel from 'react-material-ui-carousel';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
+import dynamic from 'next/dynamic';
+
+const LazyYouTube = dynamic(() => import('./LazyYouTube'), { ssr: false });
 
 const Inicio = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   const items = [
+    {
+      name: "Quiénes Somos",
+      description: "VoluntRED es una aplicación móvil que conecta a personas interesadas en el voluntariado con asociaciones de carácter social del estado de Jalisco, impulsando la participación de ciudadanos a eventos de voluntariado, actuando como un catalizador para revalorizar y potencializar el voluntariado, logrando que las necesidades de comunidades y grupos vulnerables sean atendidas, contribuyendo al desarrollo de cada uno de los indicadores establecidos en la agenda 2030 por la ONU.",
+      type: "text",
+      image: "/quienes-somos.png"
+    },
     {
       name: "Video de presentación",
       description: "Pitch de Presentación | VoluntRED",
@@ -16,27 +31,20 @@ const Inicio = () => {
       src: "https://www.youtube-nocookie.com/embed/1XVrmduzO2o?si=E99rB0id-IsLosmy"
     },
     {
-      name: "Quiénes Somos",
-      description: "VoluntRED es una aplicación móvil que conecta a personas interesadas en el voluntariado con asociaciones de carácter social del estado de Jalisco, impulsando la participación de ciudadanos a eventos de voluntariado, actuando como un catalizador para revalorizar y potencializar el voluntariado, logrando que las necesidades de comunidades y grupos vulnerables sean atendidas, contribuyendo al desarrollo de cada uno de los indicadores establecidos en la agenda 2030 por la ONU.",
-      type: "text",
-      image: "../../quienes-somos.png"
-    },
-    {
       name: "Misión",
       description: "Facilitar y fomentar la participación activa de individuos altruistas en eventos de voluntariado, conectando de manera efectiva a personas con causas significativas y a organizaciones sin fines de lucro en la Zona Metropolitana de Guadalajara (ZMG), México. Nos comprometemos a crear una plataforma inclusiva y accesible que contribuya al desarrollo de comunidades locales, promoviendo un espíritu solidario y generando un impacto positivo en la sociedad.",
       type: "text",
-      image: "../../mision.png"
+      image: "/mision.png"
     },
     {
       name: "Visión",
       description: "Aspiramos a ser la plataforma líder en México para la conexión entre voluntarios y organizaciones sociales, siendo reconocidos por nuestra contribución significativa al aumento de la participación en eventos de voluntariado. Buscamos construir una red sólida y colaborativa que inspire a la comunidad a comprometerse activamente en la construcción de un futuro más sostenible, consciente y equitativo. Nuestra visión es ser un catalizador para el cambio positivo, creando un impacto duradero en la sociedad mexicana.",
       type: "text",
-      image: "../../vision.png"
+      image: "/vision.png"
     }
   ];
 
   return (
-    
     <Box id="inicio" sx={{ 
       width: '100%', 
       minHeight: '100vh', 
@@ -48,7 +56,6 @@ const Inicio = () => {
       px: { xs: 4, sm: 6, md: 8 },
       position: 'relative'
     }}>
-      
       <Carousel
         animation="slide"
         navButtonsAlwaysVisible
@@ -106,20 +113,7 @@ const Inicio = () => {
             {item.type === 'video' ? (
               <>
                 <Box sx={{ width: '100%', paddingTop: '56.25%', position: 'relative' }}>
-                  <iframe
-                    src={item.src}
-                    style={{
-                      position: 'absolute',
-                      top: 0,
-                      left: 0,
-                      width: '100%',
-                      height: '100%',
-                      border: 'none',
-                    }}
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                    title={item.name}
-                  />
+                  {isClient && <LazyYouTube src={item.src} title={item.name} />}
                 </Box>
                 <Box sx={{ p: 4, textAlign: 'center' }}>
                   <Typography variant={isMobile ? "h5" : "h4"} component="div" sx={{ color: theme.palette.mode === 'dark' ? 'white' : 'black', fontWeight: 'bold' }}>
@@ -135,10 +129,16 @@ const Inicio = () => {
                 <Box sx={{
                   width: isMobile ? '100%' : '50%',
                   height: isMobile ? '200px' : 'auto',
-                  backgroundImage: `url(${item.image})`,
-                  backgroundSize: 'cover',
-                  backgroundPosition: 'center',
-                }}/>
+                  position: 'relative',
+                }}>
+                  <Image
+                    src={item.image}
+                    alt={item.name}
+                    layout="fill"
+                    objectFit="cover"
+                    priority={index === 0}
+                  />
+                </Box>
                 <Box sx={{ 
                   width: isMobile ? '100%' : '50%', 
                   p: 4, 

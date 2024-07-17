@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 import { Box, Typography, useMediaQuery } from '@mui/material';
 import { styled, useTheme } from '@mui/system';
 
@@ -35,11 +36,9 @@ const Face = styled(Box)({
   borderRadius: '8px',
 });
 
-const Front = styled(Face)(({ image }) => ({
-  backgroundImage: `url(${image})`,
-  backgroundSize: 'cover',
-  backgroundPosition: 'center',
-}));
+const Front = styled(Face)({
+  overflow: 'hidden', // Asegura que la imagen no se desborde
+});
 
 const Back = styled(Face)(({ color }) => ({
   flexDirection: 'column',
@@ -70,7 +69,16 @@ const ODSCard = ({ color, image, title, description }) => {
   return (
     <Card>
       <Inner className="inner" color={color}>
-        <Front image={image} />
+        <Front>
+          <Image
+            src={image}
+            alt={title}
+            layout="fill"
+            objectFit="cover"
+            loading="lazy"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          />
+        </Front>
         <Back color={color}>
           <Title isMobile={isMobile} variant="h6" component="div">
             {title}
