@@ -33,6 +33,7 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
     { text: 'Beneficios', icon: <StarIcon />, to: 'beneficios' },
     { text: 'Preguntas Frecuentes', icon: <QuestionAnswerIcon />, to: 'preguntas-frecuentes' },
     { text: 'Impacto', icon: <EmojiPeopleIcon />, to: 'impacto' },
+    { text: 'Aliados', icon: <EmojiPeopleIcon />, to: 'aliados' },
     { text: 'Nuestro Equipo', icon: <GroupIcon />, to: 'equipo' },
     { text: 'Involúcrate', icon: <EmojiPeopleIcon />, to: 'involucrate' },
     { text: 'Contáctanos', icon: <ContactMailIcon />, to: 'contacto' },

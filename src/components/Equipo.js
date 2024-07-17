@@ -4,7 +4,7 @@ import MemberCard from './MemberCard';
 
 const Equipo = () => (
     <Box id="equipo" sx={{ flexGrow: 1, p: 2 }}>
-        <Typography variant="h3" component="div" color="primary.main" fontWeight="bold" sx={{ mb: 4, textAlign: 'center' }}>
+        <Typography variant="h3" component="div" color="primary.main" fontWeight="bold" sx={{ mt : 6, mb: 4, textAlign: 'center' }}>
             Nuestro Equipo
         </Typography>
 

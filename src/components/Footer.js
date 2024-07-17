@@ -17,8 +17,8 @@ export default function Footer() {
   return (
     <Box
       sx={{
-        bgcolor: theme.palette.mode === 'dark' ? theme.palette.grey[900] : 'red', // Fondo rojo en modo claro, gris oscuro en modo oscuro
-        color: theme.palette.mode === 'dark' ? theme.palette.grey[300] : 'white', // Texto blanco en modo claro, gris en modo oscuro
+        bgcolor: theme.palette.mode === 'dark' ? theme.palette.grey[900] : 'red', 
+        color: theme.palette.mode === 'dark' ? theme.palette.grey[300] : 'white', 
         p: 3,
         mt: 2,
         display: 'flex',

@@ -9,6 +9,7 @@ import Equipo from '../components/Equipo';
 import Involucrate from '../components/Involucrate';
 import Contacto from '../components/Contacto';
 import Footer from '@/components/Footer';
+import Aliados from '@/components/Aliados';
 
 export default function Home({ toggleDarkMode, darkMode }) {
   return (
@@ -19,10 +20,12 @@ export default function Home({ toggleDarkMode, darkMode }) {
         <Beneficios />
         <PreguntasFrecuentes />
         <Impacto />
+        <Aliados/>
         <Equipo />
         <Involucrate />
         <Contacto />
-        
+
+ 
         
       </Container>
       <Footer/>

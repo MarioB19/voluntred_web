@@ -37,11 +37,11 @@ export default function FormularioContacto() {
         alignItems: 'center',
         mb: 4,
         fontWeight: 'bold',
-        fontSize: '2rem'
+        fontSize: '1.5rem'
       }}
     >
       <MailOutlineIcon sx={{ fontSize: 40, color: 'inherit', mr: 1 }} />
-      Manda <Typography variant="h4" component="span" sx={{ color: theme.palette.text.primary, fontWeight: 'bold', fontSize: '2rem', ml: 1 }}>un mensaje.</Typography>
+      Manda <Typography variant="h4" component="span" sx={{ color: theme.palette.text.primary, fontWeight: 'bold', fontSize: '1.5rem', ml: 1 }}>un mensaje.</Typography>
     </Typography>
       <Grid container spacing={3}>
         <Grid item xs={12} sm={6}>
