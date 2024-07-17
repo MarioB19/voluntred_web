@@ -56,7 +56,7 @@ const Title = styled((props) => <Typography {...props} />)(({ theme, isMobile })
 }));
 
 const Description = styled((props) => <Typography {...props} />)(({ theme, isMobile }) => ({
-  fontSize: isMobile ? '0.6rem' : '1.5rem',
+  fontSize: isMobile ? '0.6rem' : '1.2rem',
   textAlign: 'center',
   '& span': {
     fontWeight: 'bold',
