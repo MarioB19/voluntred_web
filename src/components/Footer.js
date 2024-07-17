@@ -9,9 +9,9 @@ import logo from '../../public/logo.png';
 export default function Footer() {
   const theme = useTheme();
   const socialLinks = {
-    Instagram: 'https://instagram.com',
-    YouTube: 'https://youtube.com',
-    TikTok: 'https://tiktok.com'
+    Instagram: 'https://www.instagram.com/voluntred.mx/',
+    YouTube: 'https://www.youtube.com/@VoluntRED',
+    TikTok: 'https://www.tiktok.com/@voluntred'
   };
 
   return (
