@@ -116,10 +116,10 @@ const Inicio = () => {
                   {isClient && <LazyYouTube src={item.src} title={item.name} />}
                 </Box>
                 <Box sx={{ p: 4, textAlign: 'center' }}>
-                  <Typography variant={isMobile ? "h5" : "h4"} component="div" sx={{ color: theme.palette.mode === 'dark' ? 'white' : 'black', fontWeight: 'bold' }}>
+                  <Typography variant={isMobile ? "h5" : "h4"} component="div" sx={{ color: '#4CAF50', mt: 2, fontWeight: 'bold' }}>
                     {item.name}
                   </Typography>
-                  <Typography variant={isMobile ? "h6" : "h5"} sx={{ color: '#4CAF50', mt: 2, fontWeight: 'bold' }}>
+                  <Typography variant={isMobile ? "h6" : "h5"} sx={{ color: theme.palette.mode === 'dark' ? 'white' : 'black', fontWeight: 'bold' }}>
                     {item.description}
                   </Typography>
                 </Box>
@@ -148,10 +148,11 @@ const Inicio = () => {
                   alignItems: 'center',
                   bgcolor: theme.palette.mode === 'dark' ? 'black' : 'white',
                 }}>
-                  <Typography variant={isMobile ? "h5" : "h4"} component="div" sx={{ color: theme.palette.mode === 'dark' ? 'white' : 'black', fontWeight: 'bold', textAlign: 'center' }}>
+                  <Typography variant={isMobile ? "h5" : "h4"} component="div" sx={{ color: '#4CAF50', mt: 2, textAlign: 'center', fontWeight: 'bold' }}>
                     {item.name}
                   </Typography>
-                  <Typography variant={isMobile ? "h6" : "h5"} sx={{ color: '#4CAF50', mt: 2, textAlign: 'justify', fontWeight: 'bold' }}>
+                
+                  <Typography variant={isMobile ? "h6" : "h5"} sx={  { color: theme.palette.mode === 'dark' ? 'white' : 'black', fontWeight: 'bold', textAlign: 'justify' }}>
                     {item.description}
                   </Typography>
                 </Box>
