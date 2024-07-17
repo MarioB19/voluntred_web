@@ -26,15 +26,7 @@ export default function Contacto() {
           </IconButton>
           <Typography variant="subtitle1" sx={{ color: 'text.secondary', fontSize: '1.5rem' }}>voluntred@gmail.com</Typography>
         </Grid>
-        <Grid item xs={12} sm={6} display="flex" flexDirection="column" alignItems="center">
-          <IconButton sx={{ color: 'white', bgcolor: 'blue', mb: 1, '&:hover': { bgcolor: 'blue' }, borderRadius: '50%' }}>
-            <PhoneIcon />
-          </IconButton>
-          <Typography variant="subtitle1" sx={{ color: 'text.secondary', fontSize: '1.5rem' }}>
-            +52 33 2179-0549<br />
-
-          </Typography>
-        </Grid>
+      
       </Grid>
       <FormularioContacto></FormularioContacto>
     </Box>
