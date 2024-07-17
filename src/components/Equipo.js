@@ -13,7 +13,7 @@ const Equipo = () => (
             <Grid item>
                 <MemberCard
                     name="Mario Brandon Muro Ramos"
-                    position="Fundador & Chief Executive Officer (CEO)"
+                    position="Founder & Chief Executive Officer (CEO)"
                     degree="Tecnólogo en Desarrollo de Software"
                     description="Agente de cambio apasionado de la tecnología y de sus implicaciones y aplicaciones en el ambito social, para lograr un impacto positivo."
                     linkedIn="https://www.linkedin.com/in/brandonmuro/"
@@ -21,6 +21,18 @@ const Equipo = () => (
                     image="../../team/brandonMuro.jpg"
                 />
             </Grid>
+            <Grid item>
+                <MemberCard
+                    name="Kassandra Edith Muro Ramos"
+                    position="Chief Business Officer (CBO) "
+                    degree="Ingeniera en Alimentos y Biotecnología"
+                    description="Coordinadora Nacional de Voluntariado en la Red Internacional de Promotores ODS y curadora del Hub de Guadalajara de Global Shapers, apasionada por generar impacto social."
+                    linkedIn="https://www.linkedin.com/in/kassandramuro/"
+                    instagram="https://www.instagram.com/kass.muro/"
+                    image="../../team/kassandraMuro.jpg"
+                />
+            </Grid>
+
             <Grid item>
                 <MemberCard
                     name="Omar Mendoza Hernandez"
