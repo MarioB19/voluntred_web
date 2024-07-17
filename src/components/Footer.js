@@ -48,7 +48,7 @@ export default function Footer() {
           </Grid>
         ))}
       </Grid>
-      <Typography variant="caption" sx={{ mt: 3, fontSize: '1.2rem', color: 'inherit' }}>
+      <Typography variant="caption" sx={{ mt: 3, fontSize: '1.2rem', color: 'inherit' , textAlign : "center"}}>
         © 2024 VoluntRED. Todos los derechos reservados.
       </Typography>
     </Box>
