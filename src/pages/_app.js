@@ -3,7 +3,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { useState } from 'react';
 import Head from 'next/head';
 function MyApp({ Component, pageProps }) {
-  const [darkMode, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useState(true);
 
   const theme = createTheme({
     palette: {

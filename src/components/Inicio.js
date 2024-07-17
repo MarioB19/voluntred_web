@@ -19,16 +19,16 @@ const Inicio = () => {
 
   const items = [
     {
-      name: "Quiénes Somos",
-      description: "VoluntRED es una aplicación móvil que conecta a personas interesadas en el voluntariado con asociaciones de carácter social del estado de Jalisco, impulsando la participación de ciudadanos a eventos de voluntariado, actuando como un catalizador para revalorizar y potencializar el voluntariado, logrando que las necesidades de comunidades y grupos vulnerables sean atendidas, contribuyendo al desarrollo de cada uno de los indicadores establecidos en la agenda 2030 por la ONU.",
-      type: "text",
-      image: "/quienes-somos.png"
-    },
-    {
       name: "Video de presentación",
       description: "Pitch de Presentación | VoluntRED",
       type: "video",
       src: "https://www.youtube-nocookie.com/embed/1XVrmduzO2o?si=E99rB0id-IsLosmy"
+    },
+    {
+      name: "Quiénes Somos",
+      description: "VoluntRED es una aplicación móvil que conecta a personas interesadas en el voluntariado con asociaciones de carácter social del estado de Jalisco, impulsando la participación de ciudadanos a eventos de voluntariado, actuando como un catalizador para revalorizar y potencializar el voluntariado, logrando que las necesidades de comunidades y grupos vulnerables sean atendidas, contribuyendo al desarrollo de cada uno de los indicadores establecidos en la agenda 2030 por la ONU.",
+      type: "text",
+      image: "/quienes-somos.png"
     },
     {
       name: "Misión",
@@ -49,8 +49,8 @@ const Inicio = () => {
       width: '100%',
       minHeight: '100vh',
       display: 'flex',
-      flexDirection: 'column',  // Cambiado a column para acomodar el título
-      justifyContent: 'flex-start',  // Cambiado a flex-start
+      flexDirection: 'column',  
+      justifyContent: 'flex-start', 
       alignItems: 'center',
       bgcolor: 'background.default',
       mt: 8,
