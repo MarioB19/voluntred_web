@@ -1,5 +1,7 @@
+import React from 'react';
 import { Container } from '@mui/material';
 import { motion } from 'framer-motion';
+import { useInView } from 'react-intersection-observer';
 import Navbar from '../components/Navbar';
 import Inicio from '../components/Inicio';
 import Beneficios from '../components/Beneficios';
@@ -10,15 +12,44 @@ import Involucrate from '../components/Involucrate';
 import Contacto from '../components/Contacto';
 import Footer from '@/components/Footer';
 import Aliados from '@/components/Aliados';
-const AnimatedSection = ({ children }) => (
-  <motion.div
-    initial={{ opacity: 0, y: 50 }}
-    animate={{ opacity: 1, y: 0 }} // Cambia whileInView por animate
-    transition={{ duration: 0.5 }}
-  >
-    {children}
-  </motion.div>
-);
+
+const AnimatedSection = ({ children }) => {
+  const [ref, inView] = useInView({
+    triggerOnce: false, // Cambiado a false para que se repita
+    threshold: 0.2 // Ajustado para que se active un poco antes
+  });
+
+  const variants = {
+    hidden: { 
+      opacity: 0, 
+      y: 50,
+      scale: 0.9
+    },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      scale: 1,
+      transition: {
+        duration: 0.6,
+        ease: "easeOut",
+        type: "spring",
+        damping: 10,
+        stiffness: 100
+      }
+    }
+  };
+
+  return (
+    <motion.div
+      ref={ref}
+      initial="hidden"
+      animate={inView ? "visible" : "hidden"}
+      variants={variants}
+    >
+      {children}
+    </motion.div>
+  );
+};
 
 export default function Home({ toggleDarkMode, darkMode }) {
   return (
@@ -35,7 +66,7 @@ export default function Home({ toggleDarkMode, darkMode }) {
           <PreguntasFrecuentes />
         </AnimatedSection>
         <AnimatedSection>
-          <Impacto></Impacto>
+          <Impacto />
         </AnimatedSection>
         <AnimatedSection>
           <Aliados />
