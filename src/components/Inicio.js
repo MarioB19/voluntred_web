@@ -49,8 +49,8 @@ const Inicio = () => {
       width: '100%',
       minHeight: '100vh',
       display: 'flex',
-      flexDirection: 'column',  
-      justifyContent: 'flex-start', 
+      flexDirection: 'column',
+      justifyContent: 'flex-start',
       alignItems: 'center',
       bgcolor: 'background.default',
       mt: 8,
@@ -152,9 +152,10 @@ const Inicio = () => {
                   <Image
                     src={item.image}
                     alt={item.name}
-                    layout="fill"
-                    objectFit="cover"
+                    fill
+                    style={{ objectFit: 'cover' }}
                     priority={index === 0}
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   />
                 </Box>
                 <Box sx={{

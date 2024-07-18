@@ -48,14 +48,14 @@ const Back = styled(Face)(({ color }) => ({
   backgroundColor: color,
 }));
 
-const Title = styled((props) => <Typography {...props} />)(({ theme, isMobile }) => ({
-  fontSize: isMobile ? '1rem' : '2rem',
+const Title = styled('div')(({ theme, $isMobile }) => ({
+  fontSize: $isMobile ? '1rem' : '2rem',
   fontWeight: 'bold',
   textAlign: 'center',
 }));
 
-const Description = styled((props) => <Typography {...props} />)(({ theme, isMobile }) => ({
-  fontSize: isMobile ? '0.6rem' : '1.2rem',
+const Description = styled('div')(({ theme, $isMobile }) => ({
+  fontSize: $isMobile ? '0.6rem' : '1.2rem',
   textAlign: 'center',
   '& span': {
     fontWeight: 'bold',
@@ -73,17 +73,17 @@ const ODSCard = ({ color, image, title, description }) => {
           <Image
             src={image}
             alt={title}
-            layout="fill"
-            objectFit="cover"
+            fill
+            style={{ objectFit: 'cover' }}
             loading="lazy"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
         </Front>
         <Back color={color}>
-          <Title isMobile={isMobile} variant="h6" component="div">
+          <Title $isMobile={isMobile} component={Typography} variant="h6">
             {title}
           </Title>
-          <Description isMobile={isMobile} variant="body2">
+          <Description $isMobile={isMobile} component={Typography} variant="body2">
             <span>Objetivo:</span> {description}
           </Description>
         </Back>
