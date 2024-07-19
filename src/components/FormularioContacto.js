@@ -1,5 +1,6 @@
 import React from 'react';
-import { Box, TextField, Button, Typography, Grid, InputAdornment, useTheme, useMediaQuery } from '@mui/material';
+import { useForm, Controller } from 'react-hook-form';
+import { Box, TextField, Button, Typography, Grid, InputAdornment, useTheme } from '@mui/material';
 import EmailIcon from '@mui/icons-material/Email';
 import PersonIcon from '@mui/icons-material/Person';
 import EditNoteIcon from '@mui/icons-material/EditNote';
@@ -15,8 +16,38 @@ export default function FormularioContacto() {
   const theme = useTheme();
   const isDarkMode = theme.palette.mode === 'dark';
 
+  const { control, handleSubmit, formState: { errors } } = useForm({
+    defaultValues: {
+      nombre: '',
+      email: '',
+      mensaje: ''
+    },
+    mode: 'onChange' // Esto activa la validación en tiempo real
+  });
+
+  const onSubmit = async (data) => {
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+      if (response.ok) {
+        alert('Mensaje enviado con éxito');
+      } else {
+        throw new Error('Error al enviar el mensaje');
+      }
+    } catch (error) {
+      alert('Error al enviar el mensaje: ' + error.message);
+    }
+  };
+
   return (
     <Box
+      component="form"
+      onSubmit={handleSubmit(onSubmit)}
       sx={{
         p: 4,
         bgcolor: 'background.paper',
@@ -28,80 +59,121 @@ export default function FormularioContacto() {
         animation: `${fadeIn} 0.5s ease-out`
       }}
     >
-        <Typography
-      variant="h4"
-      gutterBottom
-      sx={{
-        color: isDarkMode ? '#4dabf5' : '#1976d2',
-        display: 'flex',
-        alignItems: 'center',
-        mb: 4,
-        fontWeight: 'bold',
-        fontSize: '1.5rem'
-      }}
-    >
-      <MailOutlineIcon sx={{ fontSize: 40, color: 'inherit', mr: 1 }} />
-      Manda <Typography variant="h4" component="span" sx={{ color: theme.palette.text.primary, fontWeight: 'bold', fontSize: '1.5rem', ml: 1 }}>un mensaje.</Typography>
-    </Typography>
+      <Typography
+        variant="h4"
+        gutterBottom
+        sx={{
+          color: isDarkMode ? '#4dabf5' : '#1976d2',
+          display: 'flex',
+          alignItems: 'center',
+          mb: 4,
+          fontWeight: 'bold',
+          fontSize: '1.5rem'
+        }}
+      >
+        <MailOutlineIcon sx={{ fontSize: 40, color: 'inherit', mr: 1 }} />
+        Manda <Typography variant="h4" component="span" sx={{ color: theme.palette.text.primary, fontWeight: 'bold', fontSize: '1.5rem', ml: 1 }}>un mensaje.</Typography>
+      </Typography>
       <Grid container spacing={3}>
         <Grid item xs={12} sm={6}>
           <Typography variant="subtitle1" display="block" sx={{ mb: 1, color: 'text.primary', fontWeight: 'bold' }}>
             Nombre
           </Typography>
-          <TextField
-            fullWidth
-            variant="outlined"
-            placeholder="Nombre"
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <PersonIcon sx={{ color: isDarkMode ? '#4dabf5' : '#1976d2', fontSize: 28 }} />
-                </InputAdornment>
-              ),
-            }}
-            sx={textFieldStyle(isDarkMode)}
+          <Controller
+            name="nombre"
+            control={control}
+            rules={{ required: 'El nombre es requerido', minLength: { value: 2, message: 'Mínimo 2 caracteres' }, maxLength: { value: 50, message: 'Máximo 50 caracteres' } }}
+            render={({ field }) => (
+              <TextField
+                {...field}
+                fullWidth
+                variant="outlined"
+                placeholder="Nombre"
+                error={!!errors.nombre}
+                helperText={errors.nombre?.message}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <PersonIcon sx={{ color: isDarkMode ? '#4dabf5' : '#1976d2', fontSize: 28 }} />
+                    </InputAdornment>
+                  ),
+                }}
+                sx={textFieldStyle(isDarkMode)}
+              />
+            )}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
           <Typography variant="subtitle1" display="block" sx={{ mb: 1, color: 'text.primary', fontWeight: 'bold' }}>
             Email
           </Typography>
-          <TextField
-            fullWidth
-            variant="outlined"
-            placeholder="Email"
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <EmailIcon sx={{ color: isDarkMode ? '#4dabf5' : '#1976d2', fontSize: 28 }} />
-                </InputAdornment>
-              ),
+          <Controller
+            name="email"
+            control={control}
+            rules={{ 
+              required: 'El email es requerido', 
+              pattern: { 
+                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i, 
+                message: 'Email inválido'
+              } 
             }}
-            sx={textFieldStyle(isDarkMode)}
+            render={({ field }) => (
+              <TextField
+                {...field}
+                fullWidth
+                variant="outlined"
+                placeholder="Email"
+                error={!!errors.email}
+                helperText={errors.email?.message}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <EmailIcon sx={{ color: isDarkMode ? '#4dabf5' : '#1976d2', fontSize: 28 }} />
+                    </InputAdornment>
+                  ),
+                }}
+                sx={textFieldStyle(isDarkMode)}
+              />
+            )}
           />
         </Grid>
         <Grid item xs={12}>
           <Typography variant="subtitle1" display="block" sx={{ mb: 1, color: 'text.primary', fontWeight: 'bold' }}>
             Mensaje
           </Typography>
-          <TextField
-            fullWidth
-            variant="outlined"
-            placeholder="Mensaje"
-            multiline
-            rows={4}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end" sx={{ alignSelf: 'flex-start', mt: 1, mr: 1 }}>
-                  <EditNoteIcon sx={{ color: isDarkMode ? '#4dabf5' : '#1976d2', fontSize: 28 }} />
-                </InputAdornment>
-              ),
+          <Controller
+            name="mensaje"
+            control={control}
+            rules={{ 
+              required: 'El mensaje es requerido', 
+              minLength: { value: 10, message: 'Mínimo 10 caracteres' }, 
+              maxLength: { value: 500, message: 'Máximo 500 caracteres' } 
             }}
-            sx={textFieldStyle(isDarkMode)}
+            render={({ field }) => (
+              <TextField
+                {...field}
+                fullWidth
+                variant="outlined"
+                placeholder="Mensaje"
+                multiline
+                rows={4}
+                error={!!errors.mensaje}
+                helperText={errors.mensaje?.message}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end" sx={{ alignSelf: 'flex-start', mt: 1, mr: 1 }}>
+                      <EditNoteIcon sx={{ color: isDarkMode ? '#4dabf5' : '#1976d2', fontSize: 28 }} />
+                    </InputAdornment>
+                  ),
+                }}
+                sx={textFieldStyle(isDarkMode)}
+              />
+            )}
           />
         </Grid>
         <Grid item xs={12}>
           <Button
+            type="submit"
             variant="contained"
             sx={{
               bgcolor: isDarkMode ? '#4dabf5' : '#1976d2',
@@ -127,6 +199,8 @@ export default function FormularioContacto() {
     </Box>
   );
 }
+
+
 
 const textFieldStyle = (isDarkMode) => ({
   '& .MuiOutlinedInput-root': {
