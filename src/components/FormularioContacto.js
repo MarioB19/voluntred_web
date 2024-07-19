@@ -23,7 +23,7 @@ export default function FormularioContacto() {
   const isDarkMode = theme.palette.mode === 'dark';
   const [isLoading, setIsLoading] = useState(false);
 
-  const { control, handleSubmit, formState: { errors } } = useForm({
+  const { control, handleSubmit, formState: { errors }, reset } = useForm({
     defaultValues: {
       nombre: '',
       email: '',
@@ -44,6 +44,7 @@ export default function FormularioContacto() {
       });
       if (response.ok) {
         alert('Mensaje enviado con éxito');
+        reset()
       } else {
         throw new Error('Error al enviar el mensaje');
       }
