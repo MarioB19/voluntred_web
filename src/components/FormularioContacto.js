@@ -82,7 +82,7 @@ export default function FormularioContacto() {
           <Controller
             name="nombre"
             control={control}
-            rules={{ required: 'El nombre es requerido', minLength: { value: 2, message: 'Mínimo 2 caracteres' }, maxLength: { value: 50, message: 'Máximo 50 caracteres' } }}
+            rules={{ required: 'El nombre es requerido', minLength: { value: 5, message: 'Mínimo 5 caracteres' }, maxLength: { value: 50, message: 'Máximo 50 caracteres' } }}
             render={({ field }) => (
               <TextField
                 {...field}
@@ -146,8 +146,8 @@ export default function FormularioContacto() {
             control={control}
             rules={{ 
               required: 'El mensaje es requerido', 
-              minLength: { value: 10, message: 'Mínimo 10 caracteres' }, 
-              maxLength: { value: 500, message: 'Máximo 500 caracteres' } 
+              minLength: { value: 20, message: 'Mínimo 20 caracteres' }, 
+              maxLength: { value: 1000, message: 'Máximo 1,000 caracteres' } 
             }}
             render={({ field }) => (
               <TextField
