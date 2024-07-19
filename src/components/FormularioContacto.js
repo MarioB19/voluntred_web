@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
-import { Box, TextField, Button, Typography, Grid, InputAdornment, useTheme } from '@mui/material';
+import { Box, TextField, Button, Typography, Grid, InputAdornment, useTheme, CircularProgress } from '@mui/material';
 import EmailIcon from '@mui/icons-material/Email';
 import PersonIcon from '@mui/icons-material/Person';
 import EditNoteIcon from '@mui/icons-material/EditNote';
@@ -12,9 +12,16 @@ const fadeIn = keyframes`
   to { opacity: 1; transform: translateY(0); }
 `;
 
+const LoadingSpinner = () => (
+  <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
+    <CircularProgress />
+  </Box>
+);
+
 export default function FormularioContacto() {
   const theme = useTheme();
   const isDarkMode = theme.palette.mode === 'dark';
+  const [isLoading, setIsLoading] = useState(false);
 
   const { control, handleSubmit, formState: { errors } } = useForm({
     defaultValues: {
@@ -22,10 +29,11 @@ export default function FormularioContacto() {
       email: '',
       mensaje: ''
     },
-    mode: 'onChange' // Esto activa la validación en tiempo real
+    mode: 'onChange'
   });
 
   const onSubmit = async (data) => {
+    setIsLoading(true);
     try {
       const response = await fetch('/api/contact', {
         method: 'POST',
@@ -41,6 +49,8 @@ export default function FormularioContacto() {
       }
     } catch (error) {
       alert('Error al enviar el mensaje: ' + error.message);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -56,7 +66,8 @@ export default function FormularioContacto() {
         maxWidth: 600,
         mx: 'auto',
         my: 4,
-        animation: `${fadeIn} 0.5s ease-out`
+        animation: `${fadeIn} 0.5s ease-out`,
+        position: 'relative',
       }}
     >
       <Typography
@@ -175,6 +186,7 @@ export default function FormularioContacto() {
           <Button
             type="submit"
             variant="contained"
+            disabled={isLoading}
             sx={{
               bgcolor: isDarkMode ? '#4dabf5' : '#1976d2',
               color: 'white',
@@ -192,15 +204,32 @@ export default function FormularioContacto() {
             }}
             fullWidth
           >
-            Enviar Mensaje
+            {isLoading ? <LoadingSpinner /> : 'Enviar Mensaje'}
           </Button>
         </Grid>
       </Grid>
+
+      {isLoading && (
+        <Box
+          sx={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: 'rgba(0, 0, 0, 0.5)',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            zIndex: 1000,
+          }}
+        >
+          <LoadingSpinner />
+        </Box>
+      )}
     </Box>
   );
 }
-
-
 
 const textFieldStyle = (isDarkMode) => ({
   '& .MuiOutlinedInput-root': {
