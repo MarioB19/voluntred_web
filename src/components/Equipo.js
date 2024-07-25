@@ -17,7 +17,7 @@ const Equipo = () => (
                     degree="Tecnólogo en Desarrollo de Software"
                     description="Agente de cambio apasionado por tecnología y de sus implicaciones y aplicaciones en el ambito social, innovando y creando tecnología."
                     linkedIn="https://www.linkedin.com/in/brandonmuro/"
-                    instagram="https://www.instagram.com/brandon_mur_/"
+                    instagram="https://www.instagram.com/brandon.muro.mx/"
                     image="../../team/brandonMuro.jpg"
                 />
             </Grid>
