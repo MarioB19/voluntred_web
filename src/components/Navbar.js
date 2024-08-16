@@ -10,11 +10,17 @@ import Image from 'next/image';
 import logo from '../../public/logo.png';
 import HomeIcon from '@mui/icons-material/Home';
 
-import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
-import GroupIcon from '@mui/icons-material/Group';
-import ContactMailIcon from '@mui/icons-material/ContactMail';
-import EmojiPeopleIcon from '@mui/icons-material/EmojiPeople';
 import StarIcon from '@mui/icons-material/Star';
+import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
+import TrendingUpIcon from '@mui/icons-material/TrendingUp';
+import HandshakeIcon from '@mui/icons-material/Handshake';
+import GroupIcon from '@mui/icons-material/Group';
+import VolunteerActivismIcon from '@mui/icons-material/VolunteerActivism';
+import ContactMailIcon from '@mui/icons-material/ContactMail';
+
+
+;
+
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
 import { useTheme } from '@mui/material/styles';
@@ -31,14 +37,13 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
   const menuItems = [
     { text: 'Inicio', icon: <HomeIcon />, to: 'inicio' },
     { text: 'Beneficios', icon: <StarIcon />, to: 'beneficios' },
-    { text: 'Preguntas Frecuentes', icon: <QuestionAnswerIcon />, to: 'preguntas-frecuentes' },
-    { text: 'Impacto', icon: <EmojiPeopleIcon />, to: 'impacto' },
-    { text: 'Aliados', icon: <EmojiPeopleIcon />, to: 'aliados' },
+    { text: 'Preguntas Frecuentes', icon: <HelpOutlineIcon />, to: 'preguntas-frecuentes' },
+    { text: 'Impacto', icon: <TrendingUpIcon />, to: 'impacto' },
+    { text: 'Aliados', icon: <HandshakeIcon />, to: 'aliados' },
     { text: 'Nuestro Equipo', icon: <GroupIcon />, to: 'equipo' },
-    { text: 'Involúcrate', icon: <EmojiPeopleIcon />, to: 'involucrate' },
+    { text: 'Involúcrate', icon: <VolunteerActivismIcon />, to: 'involucrate' },
     { text: 'Contáctanos', icon: <ContactMailIcon />, to: 'contacto' },
   ];
-
   useEffect(() => {
     const handleScroll = () => {
       const currentPosition = window.pageYOffset;
