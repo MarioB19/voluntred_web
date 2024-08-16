@@ -18,7 +18,7 @@ export default function Involucrate() {
       </Typography>
       <Typography variant="body1" sx={{ mb: 4, color: 'text.primary', fontSize: { xs: '1.3rem', md: '1.3rem' } }}>
         Actualmente estamos buscando personas comprometidas que quieran unirse a nuestra causa.
-        Es por ello, que les brindaremos la oportunidad de probar nuestro prototipo, y que nos puedan brindar retroalimentaciones,
+        Es por ello, que les brindaremos la oportunidad de probar nuestro prototipo, y que nos puedan hacer llegar retroalimentaciones,
         igualmente de que estarán en la lista de espera para contar con acceso anticipado a la Aplicación Móvil.
         <Box component="span" sx={{ display: 'block', fontWeight: 'bold', fontSize: '1.5rem', mt: 2 }}>
           ¡Regístrate como Voluntario y se parte del cambio con VoluntRED!
