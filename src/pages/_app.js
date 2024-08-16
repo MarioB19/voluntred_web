@@ -1,5 +1,7 @@
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
+import { NextUIProvider } from '@nextui-org/react'
+
 import { useState } from 'react';
 import Head from 'next/head';
 function MyApp({ Component, pageProps }) {
