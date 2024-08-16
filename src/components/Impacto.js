@@ -1,8 +1,11 @@
 import React from 'react';
-import { Box, Grid, Typography } from '@mui/material';
+import { Box, Grid, Typography, useTheme, useMediaQuery } from '@mui/material';
 import ODSCard from './ODSCard';
 
 const Impacto = () => {
+
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
     const odsItems = [
         {
           color: '#E5243B',
@@ -112,7 +115,7 @@ const Impacto = () => {
         variant="body1"
         component="div"
         color="text.primary"
-        sx={{ mb: 4, fontSize: '1.5rem', textAlign: 'center' }}
+        sx={{ mb: 4, fontSize: isMobile ? '1.1rem' : '1.5rem', textAlign: 'center' }}
       >
         En VoluntRED estamos dedicados a promover los Objetivos de Desarrollo Sostenible (ODS) mediante nuestro trabajo. Conectamos a voluntarios con organizaciones sociales que se enfocan en causas alineadas con los 17 ODS, como la reducción de la pobreza, la salud y el bienestar, y la igualdad de género, entre otros. Clasificamos cada proyecto en nuestra plataforma según el ODS al que contribuyen directamente. De esta manera, nuestros usuarios pueden seleccionar el objetivo global al que desean aportar su tiempo y habilidades al buscar oportunidades de voluntariado.
       </Typography>
