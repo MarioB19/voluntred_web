@@ -29,7 +29,7 @@ const faqCategories = [
     ],
   },
   {
-    category: 'Aplicacion Movil',
+    category: 'Aplicación Móvil',
     icon: <MobileFriendlyIcon />,
     color: '#66B2FF',
     questions: [
