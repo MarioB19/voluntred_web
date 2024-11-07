@@ -37,25 +37,25 @@ const Inicio = () => {
   const users = [
     {
       type: "Voluntarios",
-      icon: <Users className="w-12 h-12" />,
+      icon: <Users className="w-12 h-12 sm:w-16 sm:h-16" />,
       items: ["Ciudadanos", "Universitarios", "Empleados"],
       description: "Personas comprometidas con el cambio social y el desarrollo comunitario."
     },
     {
       type: "ONG's",
-      icon: <Building2 className="w-12 h-12" />,
+      icon: <Building2 className="w-12 h-12 sm:w-16 sm:h-16" />,
       items: ["Asociaciones Civiles", "Fundaciones", "Organizaciones Sociales"],
       description: "Organizaciones dedicadas a causas sociales y desarrollo comunitario."
     },
     {
       type: "Universidades",
-      icon: <GraduationCap className="w-12 h-12" />,
+      icon: <GraduationCap className="w-12 h-12 sm:w-16 sm:h-16" />,
       items: ["Instituciones Educativas", "Centros de Investigación", "Programas de Servicio Social"],
       description: "Centros educativos comprometidos con la formación integral y el impacto social."
     },
     {
       type: "Empresas",
-      icon: <Briefcase className="w-12 h-12" />,
+      icon: <Briefcase className="w-12 h-12 sm:w-16 sm:h-16" />,
       items: ["Corporativos", "PyMEs", "Empresas Socialmente Responsables"],
       description: "Organizaciones que buscan generar un impacto positivo en la sociedad."
     }
@@ -64,7 +64,7 @@ const Inicio = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black p-8 pt-24 font-['Poppins']">
       <motion.h1 
-        className="text-7xl md:text-8xl font-extrabold text-center mb-20"
+        className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold text-center mb-16 sm:mb-20"
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
@@ -79,22 +79,22 @@ const Inicio = () => {
         onValueChange={setActiveTab} 
         className="w-full max-w-5xl mx-auto mb-24"
       >
-        <TabsList className="w-full flex justify-between bg-gray-800/50 rounded-full p-2 mb-12">
+        <TabsList className="w-full flex flex-row justify-between bg-gray-800/50 rounded-3xl p-2 mb-6 sm:mb-12">
           {sections.map((section) => {
             const tabValue = normalizeTitleToValue(section.title);
             return (
               <TabsTrigger 
                 key={section.title} 
                 value={tabValue}
-                className="flex-1 rounded-full text-white text-xl font-semibold data-[state=active]:bg-gradient-to-r from-blue-500 via-green-500 to-red-500 data-[state=active]:text-black transition-all duration-300 py-4 px-6"
+                className="flex-1 rounded-full text-white text-base sm:text-lg md:text-xl lg:text-2xl font-semibold data-[state=active]:bg-gradient-to-r from-blue-500 via-green-500 to-red-500 data-[state=active]:text-black transition-all duration-300 py-3 sm:py-4 px-4 sm:px-6"
               >
                 <motion.div 
-                  className="flex items-center gap-3 justify-center" 
+                  className="flex items-center gap-2 sm:gap-3 justify-center" 
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
                   {section.icon}
-                  <span className="hidden md:inline">{section.title}</span>
+                  <span className="hidden sm:inline">{section.title}</span>
                 </motion.div>
               </TabsTrigger>
             )
@@ -110,12 +110,12 @@ const Inicio = () => {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -20 }}
                   transition={{ duration: 0.5 }}
-                  className="bg-gradient-to-br from-gray-800/80 to-gray-900/80 rounded-3xl p-10 md:p-16 backdrop-blur-lg border border-blue-500/20 shadow-2xl max-w-5xl mx-auto w-full"
+                  className="bg-gradient-to-br from-gray-800/80 to-gray-900/80 rounded-3xl p-8 sm:p-10 md:p-16 backdrop-blur-lg border border-blue-500/20 shadow-2xl max-w-5xl mx-auto w-full"
                 >
-                  <h2 className="text-4xl md:text-5xl font-bold mb-8 bg-gradient-to-r from-blue-400 via-green-400 to-red-500 text-transparent bg-clip-text text-center">
+                  <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 sm:mb-8 bg-gradient-to-r from-blue-400 via-green-400 to-red-500 text-transparent bg-clip-text text-center">
                     {section.title}
                   </h2>
-                  <p className="text-gray-200 text-xl md:text-2xl leading-relaxed text-center">
+                  <p className="text-gray-200 text-lg sm:text-xl md:text-2xl lg:text-3xl leading-relaxed text-center">
                     {section.content}
                   </p>
                 </motion.div>
@@ -126,7 +126,7 @@ const Inicio = () => {
       </Tabs>
 
       <motion.h2 
-        className="text-6xl md:text-7xl font-extrabold text-center mb-20"
+        className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-center mb-12 sm:mb-20"
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
@@ -159,8 +159,8 @@ const Inicio = () => {
             className="relative group"
           >
             <div className="absolute inset-0 bg-gradient-to-r from-blue-500/30 to-green-500/30 rounded-3xl blur-xl group-hover:blur-2xl transition-all duration-300" />
-            <div className="relative bg-gray-800/90 border-2 border-blue-500/30 rounded-3xl p-8 h-full backdrop-blur-sm">
-              <div className="flex items-center gap-6 mb-6">
+            <div className="relative bg-gray-800/90 border-2 border-blue-500/30 rounded-3xl p-6 sm:p-8 h-full backdrop-blur-sm">
+              <div className="flex items-center gap-4 sm:gap-6 mb-4 sm:mb-6">
                 <motion.div
                   initial={{ rotate: 0 }}
                   whileHover={{ rotate: 360, scale: 1.2 }}
@@ -169,23 +169,23 @@ const Inicio = () => {
                 >
                   {user.icon}
                 </motion.div>
-                <h3 className="text-4xl font-bold bg-gradient-to-r from-blue-400 to-green-500 text-transparent bg-clip-text">
+                <h3 className="text-3xl sm:text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-400 to-green-500 text-transparent bg-clip-text">
                   {user.type}
                 </h3>
               </div>
-              <p className="text-gray-300 text-xl mb-6">
+              <p className="text-gray-300 text-lg sm:text-xl md:text-2xl lg:text-3xl mb-4 sm:mb-6">
                 {user.description}
               </p>
-              <ul className="space-y-3">
+              <ul className="space-y-2 sm:space-y-3">
                 {user.items.map((item) => (
                   <motion.li
                     key={item}
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.5 }}
-                    className="text-gray-200 text-lg flex items-center gap-3"
+                    className="text-gray-200 text-base sm:text-lg md:text-xl lg:text-2xl flex items-center gap-2 sm:gap-3"
                   >
-                    <span className="w-2 h-2 bg-blue-400 rounded-full" />
+                    <span className="w-2 h-2 sm:w-3 sm:h-3 bg-blue-400 rounded-full" />
                     {item}
                   </motion.li>
                 ))}
