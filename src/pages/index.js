@@ -16,6 +16,8 @@ export default function Home({ toggleDarkMode, darkMode }) {
     <div>
 <Navbar>
 </Navbar>
+
+<Inicio></Inicio>
     </div>
   );
 }
