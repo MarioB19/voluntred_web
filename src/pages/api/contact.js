@@ -19,7 +19,7 @@ export default async function handler(req, res) {
       // Envía el correo
       await transporter.sendMail({
         from: `"Formulario de Contacto" <${process.env.EMAIL_USER}>`,
-        to: "brandonmuro.contacto@gmail.com", 
+        to: "brandonmuro.contacto@gmail.com", //TODO: change to vive@shieldedchange.com.mx
         subject: "Nuevo mensaje de contacto",
         text: `Nombre: ${nombre}\nEmail: ${email}\nMensaje: ${mensaje}`,
         html: `
