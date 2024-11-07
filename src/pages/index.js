@@ -14,19 +14,8 @@ import Aliados from '@/components/Aliados';
 export default function Home({ toggleDarkMode, darkMode }) {
   return (
     <div>
-      <Navbar toggleDarkMode={toggleDarkMode} darkMode={darkMode} />
-      <Container>
-        <Inicio />
-        <Beneficios />
-        <PreguntasFrecuentes />
-        <Impacto />
-        <Aliados/>
-        <Equipo />
-        <Involucrate />
-        <Contacto /> 
-        
-      </Container>
-      <Footer/>
+<Navbar>
+</Navbar>
     </div>
   );
 }

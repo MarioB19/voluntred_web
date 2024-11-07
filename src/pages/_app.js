@@ -1,42 +1,22 @@
-import { ThemeProvider, createTheme } from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline';
-import { NextUIProvider } from '@nextui-org/react'
+import '@/styles/globals.css'
+import { Inter } from 'next/font/google'
+import Head from 'next/head'
 
-import { useState } from 'react';
-import Head from 'next/head';
+const inter = Inter({ subsets: ['latin'] })
+
 function MyApp({ Component, pageProps }) {
-  const [darkMode, setDarkMode] = useState(true);
-
-  const theme = createTheme({
-    palette: {
-      mode: darkMode ? 'dark' : 'light',
-      primary: {
-        main: '#4CAF50', // Verde
-      },
-      secondary: {
-        main: '#F44336', // Rojo
-      },
-      info: {
-        main: '#2196F3', // Azul
-      },
-    },
-  });
-
-  const toggleDarkMode = () => {
-    setDarkMode(!darkMode);
-  };
-
   return (
-    <ThemeProvider theme={theme}>
-          <Head>
+    <>
+      <Head>
         <title>VoluntRED</title>
-        <link rel="icon" href="../../logo.png" type="image/png" />
-
+        <link rel="icon" href="/logo.png" type="image/png" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
-      <CssBaseline />
-      <Component {...pageProps} darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
-    </ThemeProvider>
-  );
+      <main className={`${inter.className} min-h-screen bg-background text-foreground`}>
+        <Component {...pageProps} />
+      </main>
+    </>
+  )
 }
 
-export default MyApp;
+export default MyApp

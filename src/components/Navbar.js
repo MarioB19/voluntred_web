@@ -1,151 +1,122 @@
-import React, { useState, useEffect } from 'react';
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
-import { Box, Drawer, List, ListItem, ListItemText, ListItemIcon, Tooltip } from '@mui/material';
-import { Link as ScrollLink, animateScroll as scroll } from 'react-scroll';
-import Image from 'next/image';
-import logo from '../../public/logo.png';
-import HomeIcon from '@mui/icons-material/Home';
+"use client"
 
-import StarIcon from '@mui/icons-material/Star';
-import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
-import TrendingUpIcon from '@mui/icons-material/TrendingUp';
-import HandshakeIcon from '@mui/icons-material/Handshake';
-import GroupIcon from '@mui/icons-material/Group';
-import VolunteerActivismIcon from '@mui/icons-material/VolunteerActivism';
-import ContactMailIcon from '@mui/icons-material/ContactMail';
+import React, { useState, useEffect } from 'react'
+import { Link as ScrollLink } from 'react-scroll'
+import { Menu } from 'lucide-react'
+import { motion } from 'framer-motion'
+import { Button } from "@/components/ui/button"
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet"
 
+const menuItems = [
+  { text: 'Inicio', to: 'inicio' },
+  { text: 'Beneficios', to: 'beneficios' },
+  { text: 'Preguntas Frecuentes', to: 'preguntas-frecuentes' },
+  { text: 'Impacto', to: 'impacto' },
+  { text: 'Aliados', to: 'aliados' },
+  { text: 'Nuestro Equipo', to: 'equipo' },
+  { text: 'Involúcrate', to: 'involucrate' },
+  { text: 'Contáctanos', to: 'contacto' },
+]
 
-;
+export default function Navbar() {
+  const [activeSection, setActiveSection] = useState('')
+  const [isOpen, setIsOpen] = useState(false)
 
-import Brightness4Icon from '@mui/icons-material/Brightness4';
-import Brightness7Icon from '@mui/icons-material/Brightness7';
-import { useTheme } from '@mui/material/styles';
-
-export default function Navbar({ darkMode, toggleDarkMode }) {
-  const [isOpen, setIsOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState('');
-  const theme = useTheme();
-
-  const toggleDrawer = (open) => () => {
-    setIsOpen(open);
-  };
-
-  const menuItems = [
-    { text: 'Inicio', icon: <HomeIcon />, to: 'inicio' },
-    { text: 'Beneficios', icon: <StarIcon />, to: 'beneficios' },
-    { text: 'Preguntas Frecuentes', icon: <HelpOutlineIcon />, to: 'preguntas-frecuentes' },
-    { text: 'Impacto', icon: <TrendingUpIcon />, to: 'impacto' },
-    { text: 'Aliados', icon: <HandshakeIcon />, to: 'aliados' },
-    { text: 'Nuestro Equipo', icon: <GroupIcon />, to: 'equipo' },
-    { text: 'Involúcrate', icon: <VolunteerActivismIcon />, to: 'involucrate' },
-    { text: 'Contáctanos', icon: <ContactMailIcon />, to: 'contacto' },
-  ];
   useEffect(() => {
     const handleScroll = () => {
-      const currentPosition = window.pageYOffset;
+      const currentPosition = window.pageYOffset
       for (const item of menuItems) {
-        const element = document.getElementById(item.to);
+        const element = document.getElementById(item.to)
         if (element) {
-          const { offsetTop, offsetHeight } = element;
+          const { offsetTop, offsetHeight } = element
           if (currentPosition >= offsetTop && currentPosition < offsetTop + offsetHeight) {
-            setActiveSection(item.to);
-            break;
+            setActiveSection(item.to)
+            break
           }
         }
       }
-    };
+    }
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
   return (
-    <AppBar position="fixed" color="primary" sx={{ bgcolor: theme.palette.background.default }}>
-      <Toolbar>
-        <IconButton edge="start" color="inherit" aria-label="menu" onClick={toggleDrawer(true)}>
-          <MenuIcon />
-        </IconButton>
-        <Image src={logo} alt="Logo" width={60} height={60} />
-        <Typography variant="h6" sx={{ flexGrow: 1, ml: 2, color: theme.palette.text.primary }}>
-          <span style={{ color: '#FF6666' }}>Volunt</span>
-          <span style={{ color: '#CC0000' }}>RED</span>
-        </Typography>
-        <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-          {menuItems.map((item) => (
-            <ScrollLink
-              key={item.text}
-              to={item.to}
-              smooth={true}
-              duration={1000}
-              spy={true}
-              activeClass="active"
-              className="nav-link"
-              style={{
-                margin: '0 10px',
-                cursor: 'pointer',
-                color: activeSection === item.to ? theme.palette.primary.main : theme.palette.text.primary,
-                textDecoration: 'none',
-                position: 'relative',
-                padding: '5px 0',
-              }}
-            >
-              {item.text}
-              <Box
-                sx={{
-                  position: 'absolute',
-                  bottom: 0,
-                  left: 0,
-                  width: '100%',
-                  height: '2px',
-                  bgcolor: theme.palette.primary.main,
-                  transform: activeSection === item.to ? 'scaleX(1)' : 'scaleX(0)',
-                  transition: 'transform 0.3s ease',
-                }}
-              />
-            </ScrollLink>
-          ))}
-        </Box>
-        <Tooltip title={darkMode ? "Modo claro" : "Modo oscuro"}>
-          <IconButton onClick={toggleDarkMode} color="inherit" sx={{ ml: 2 }}>
-            {darkMode ? (
-              <Brightness7Icon sx={{ transition: 'transform 0.3s', '&:hover': { transform: 'rotate(180deg)' } }} />
-            ) : (
-              <Brightness4Icon sx={{ transition: 'transform 0.3s', '&:hover': { transform: 'rotate(180deg)' } }} />
-            )}
-          </IconButton>
-        </Tooltip>
-      </Toolbar>
-      <Drawer anchor="left" open={isOpen} onClose={toggleDrawer(false)}>
-        <List sx={{ width: 250 }}>
-          {menuItems.map((item) => (
-            <ListItem
-              button
-              key={item.text}
-              onClick={toggleDrawer(false)}
-              sx={{
-                bgcolor: activeSection === item.to ? theme.palette.action.selected : 'transparent',
-                '&:hover': {
-                  bgcolor: theme.palette.action.hover,
-                },
-              }}
-            >
-              <ListItemIcon>{item.icon}</ListItemIcon>
-              <ScrollLink
-                to={item.to}
-                smooth={true}
-                duration={1000}
-                style={{ textDecoration: 'none', color: 'inherit', width: '100%' }}
+    <motion.nav
+      className="fixed top-0 left-0 right-0 z-50 bg-black border-none"
+      initial={{ opacity: 0, y: -100 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+    >
+      <div className="container mx-auto px-4">
+        <div className="flex items-center justify-between h-16">
+          <motion.h1 
+            className="text-2xl font-bold"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <span className="bg-gradient-to-r from-green-400 to-blue-500 text-transparent bg-clip-text">Volunt</span>
+            <span className="text-[#FF0000]">RED</span>
+          </motion.h1>
+
+          <div className="hidden md:flex space-x-4">
+            {menuItems.map((item) => (
+              <motion.div
+                key={item.text}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
               >
-                <ListItemText primary={item.text} />
-              </ScrollLink>
-            </ListItem>
-          ))}
-        </List>
-      </Drawer>
-    </AppBar>
-  );
+                <ScrollLink
+                  to={item.to}
+                  smooth={true}
+                  duration={1000}
+                  spy={true}
+                  activeClass="text-[#6BB5FF]"
+                  className={`cursor-pointer transition-colors ${
+                    activeSection === item.to ? 'text-[#6BB5FF]' : 'text-white hover:text-[#6BB5FF]'
+                  }`}
+                >
+                  {item.text}
+                </ScrollLink>
+              </motion.div>
+            ))}
+          </div>
+
+          <Sheet open={isOpen} onOpenChange={setIsOpen}>
+            <SheetTrigger asChild>
+              <Button variant="ghost" size="icon" className="md:hidden">
+                <Menu className="h-6 w-6 text-white" />
+                <span className="sr-only">Open menu</span>
+              </Button>
+            </SheetTrigger>
+            <SheetContent side="right" className="w-[300px] sm:w-[400px] bg-black">
+              <SheetHeader>
+                <SheetTitle className="text-white">Menu</SheetTitle>
+              </SheetHeader>
+              <nav className="flex flex-col space-y-4 mt-4">
+                {menuItems.map((item) => (
+                  <ScrollLink
+                    key={item.text}
+                    to={item.to}
+                    smooth={true}
+                    duration={1000}
+                    className="text-white hover:text-[#6BB5FF] transition-colors"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    {item.text}
+                  </ScrollLink>
+                ))}
+              </nav>
+            </SheetContent>
+          </Sheet>
+        </div>
+      </div>
+    </motion.nav>
+  )
 }
