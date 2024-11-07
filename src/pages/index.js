@@ -18,6 +18,7 @@ export default function Home({ toggleDarkMode, darkMode }) {
 </Navbar>
 
 <Inicio></Inicio>
+<Beneficios></Beneficios>
     </div>
   );
 }
