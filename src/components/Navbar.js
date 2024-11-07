@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link as ScrollLink } from 'react-scroll'
 import { Menu } from 'lucide-react'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import { Button } from "@/components/ui/button"
 import {
   Sheet,
@@ -49,23 +49,23 @@ export default function Navbar() {
 
   return (
     <motion.nav
-      className="fixed top-0 left-0 right-0 z-50 bg-black border-none"
+      className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-gray-900 to-black border-b border-blue-500/20 backdrop-blur-sm"
       initial={{ opacity: 0, y: -100 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
     >
       <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-20">
           <motion.h1 
-            className="text-2xl font-bold"
+            className="text-3xl font-extrabold"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            <span className="bg-gradient-to-r from-green-400 to-blue-500 text-transparent bg-clip-text">Volunt</span>
-            <span className="text-[#FF0000]">RED</span>
+            <span className="bg-gradient-to-r from-blue-400 via-green-400 to-red-500 text-transparent bg-clip-text">Volunt</span>
+            <span className="text-red-500">RED</span>
           </motion.h1>
 
-          <div className="hidden md:flex space-x-4">
+          <div className="hidden md:flex space-x-6">
             {menuItems.map((item) => (
               <motion.div
                 key={item.text}
@@ -77,9 +77,11 @@ export default function Navbar() {
                   smooth={true}
                   duration={1000}
                   spy={true}
-                  activeClass="text-[#6BB5FF]"
-                  className={`cursor-pointer transition-colors ${
-                    activeSection === item.to ? 'text-[#6BB5FF]' : 'text-white hover:text-[#6BB5FF]'
+                  activeClass="text-blue-400"
+                  className={`cursor-pointer transition-colors text-lg font-semibold ${
+                    activeSection === item.to 
+                      ? 'bg-gradient-to-r from-blue-400 to-green-400 text-transparent bg-clip-text' 
+                      : 'text-gray-300 hover:text-white'
                   }`}
                 >
                   {item.text}
@@ -95,23 +97,39 @@ export default function Navbar() {
                 <span className="sr-only">Open menu</span>
               </Button>
             </SheetTrigger>
-            <SheetContent side="right" className="w-[300px] sm:w-[400px] bg-black">
+            <SheetContent side="right" className="w-[300px] sm:w-[400px] bg-gradient-to-b from-gray-900 to-black border-l border-blue-500/20">
               <SheetHeader>
-                <SheetTitle className="text-white">Menu</SheetTitle>
+                <SheetTitle className="text-3xl font-extrabold">
+                  <span className="bg-gradient-to-r from-blue-400 via-green-400 to-red-500 text-transparent bg-clip-text">Volunt</span>
+                  <span className="text-red-500">RED</span>
+                </SheetTitle>
               </SheetHeader>
-              <nav className="flex flex-col space-y-4 mt-4">
-                {menuItems.map((item) => (
-                  <ScrollLink
-                    key={item.text}
-                    to={item.to}
-                    smooth={true}
-                    duration={1000}
-                    className="text-white hover:text-[#6BB5FF] transition-colors"
-                    onClick={() => setIsOpen(false)}
-                  >
-                    {item.text}
-                  </ScrollLink>
-                ))}
+              <nav className="flex flex-col space-y-6 mt-8">
+                <AnimatePresence>
+                  {menuItems.map((item) => (
+                    <motion.div
+                      key={item.text}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: 20 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      <ScrollLink
+                        to={item.to}
+                        smooth={true}
+                        duration={1000}
+                        className={`text-xl font-semibold transition-colors ${
+                          activeSection === item.to 
+                            ? 'bg-gradient-to-r from-blue-400 to-green-400 text-transparent bg-clip-text' 
+                            : 'text-gray-300 hover:text-white'
+                        }`}
+                        onClick={() => setIsOpen(false)}
+                      >
+                        {item.text}
+                      </ScrollLink>
+                    </motion.div>
+                  ))}
+                </AnimatePresence>
               </nav>
             </SheetContent>
           </Sheet>
