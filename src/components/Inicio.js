@@ -62,6 +62,7 @@ const Inicio = () => {
   ]
 
   return (
+    <section id= "inicio">
     <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black p-8 pt-24 font-['Poppins']">
       <motion.h1 
         className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold text-center mb-16 sm:mb-20"
@@ -195,6 +196,7 @@ const Inicio = () => {
         ))}
       </motion.div>
     </div>
+    </section>
   )
 }
 

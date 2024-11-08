@@ -10,6 +10,7 @@ import Price from '@/components/Price';
 import Aliados from '@/components/Aliados';
 import Contacto from '@/components/Contacto';
 import FAQ from '@/components/FAQ';
+import Footer from '@/components/Footer';
 
 
 
@@ -26,6 +27,8 @@ export default function Home() {
 <Aliados></Aliados>
 <FAQ></FAQ>
 <Contacto></Contacto>
+
+<Footer></Footer>
 
     </div>
   );
