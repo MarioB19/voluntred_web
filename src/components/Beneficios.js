@@ -53,9 +53,8 @@ const beneficios = {
 const Beneficios = () => {
   return (
     <section id="beneficios" className="min-h-screen bg-gradient-to-b from-gray-900 to-black p-8 pt-24 font-['Poppins']">
-  
       <motion.h2 
-        className="text-5xl md:text-6xl font-bold text-center mb-16"
+        className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold text-center mb-16 sm:mb-20"
         initial={{ opacity: 0, y: -30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
@@ -65,7 +64,7 @@ const Beneficios = () => {
         </span>
       </motion.h2>
       <motion.div 
-        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto"
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-12 max-w-7xl mx-auto"
         initial="hidden"
         animate="visible"
         variants={{
@@ -129,16 +128,16 @@ const BeneficiosCard = ({ title, benefits, icon, color }) => {
       className="relative group"
     >
       <div className={`absolute inset-0 bg-gradient-to-r ${color} rounded-3xl blur-xl group-hover:blur-2xl transition-all duration-300 opacity-75`} />
-      <Card className="relative bg-gray-900/90 border-2 border-blue-500/30 rounded-3xl overflow-hidden backdrop-blur-sm">
+      <Card className="relative bg-gray-900/90 border-2 border-blue-500/30 rounded-3xl overflow-hidden backdrop-blur-sm h-full">
         <CardHeader>
-          <div className="flex items-center space-x-4">
-            <div className="bg-white p-2 rounded-full">
-              {icon}
+          <div className="flex items-center gap-4">
+            <div className="bg-white p-2 sm:p-3 rounded-full shrink-0">
+              {React.cloneElement(icon, { className: "w-8 h-8 sm:w-12 sm:h-12" })}
             </div>
-            <h3 className="text-3xl font-bold text-white">{title}</h3>
+            <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white">{title}</h3>
           </div>
         </CardHeader>
-        <CardContent>
+        <CardContent className="pt-2">
           <ul className="space-y-3">
             {benefits.map((benefit, index) => (
               <motion.li
@@ -146,10 +145,10 @@ const BeneficiosCard = ({ title, benefits, icon, color }) => {
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="flex items-start text-gray-200"
+                className="flex items-start text-gray-200 gap-2"
               >
-                <span className="mr-2 mt-1 text-blue-400">•</span>
-                <p className="text-lg">{benefit}</p>
+                <span className="text-blue-400 text-lg sm:text-xl mt-1">•</span>
+                <p className="text-base sm:text-lg lg:text-xl">{benefit}</p>
               </motion.li>
             ))}
           </ul>
