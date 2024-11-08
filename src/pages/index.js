@@ -24,10 +24,8 @@ export default function Home() {
 <Beneficios></Beneficios>
 <Impacto></Impacto>
 <Price></Price>
-<Aliados></Aliados>
 <FAQ></FAQ>
 <Contacto></Contacto>
-
 <Footer></Footer>
 
     </div>

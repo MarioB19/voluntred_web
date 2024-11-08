@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useState, useEffect } from 'react'
-import { Link as ScrollLink } from 'react-scroll'
+import { Link as ScrollLink, animateScroll as scroll } from 'react-scroll'
 import { Menu } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Button } from "@/components/ui/button"
@@ -18,7 +18,6 @@ const menuItems = [
   { text: 'Beneficios', to: 'beneficios' },
   { text: 'Impacto', to: 'impacto' },
   { text: 'Precios', to: 'precios' },
-  { text: 'Aliados', to: 'aliados' },
   { text: 'Preguntas Frecuentes', to: 'preguntas-frecuentes' },
   { text: 'Contacto', to: 'contacto' },
 ]
@@ -28,23 +27,89 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
 
   useEffect(() => {
-    const handleScroll = () => {
-      const currentPosition = window.pageYOffset
-      for (const item of menuItems) {
-        const element = document.getElementById(item.to)
-        if (element) {
-          const { offsetTop, offsetHeight } = element
-          if (currentPosition >= offsetTop && currentPosition < offsetTop + offsetHeight) {
-            setActiveSection(item.to)
-            break
-          }
-        }
-      }
+    const observers = []
+    const observerOptions = {
+      root: null,
+      rootMargin: '-50% 0px -50% 0px',
+      threshold: 0
     }
 
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
+    const observerCallback = (entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          setActiveSection(entry.target.id)
+        }
+      })
+    }
+
+    menuItems.forEach(item => {
+      const element = document.getElementById(item.to)
+      if (element) {
+        const observer = new IntersectionObserver(observerCallback, observerOptions)
+        observer.observe(element)
+        observers.push(observer)
+      }
+    })
+
+    return () => {
+      observers.forEach(observer => observer.disconnect())
+    }
   }, [])
+
+  const scrollToTop = () => {
+    scroll.scrollToTop({
+      duration: 800,
+      smooth: 'easeInOutQuart'
+    })
+  }
+
+  const NavLink = ({ item, isMobile = false }) => (
+    <ScrollLink
+      to={item.to}
+      smooth={true}
+      duration={800}
+      spy={true}
+      offset={-80}
+      activeClass="active"
+      className={`
+        cursor-pointer 
+        transition-all 
+        duration-300 
+        text-lg 
+        font-semibold 
+        relative 
+        group
+        ${isMobile ? 'text-xl' : ''}
+        ${activeSection === item.to 
+          ? 'text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-green-400 to-red-500' 
+          : 'text-gray-400 hover:text-gray-200'
+        }
+      `}
+      onClick={() => isMobile && setIsOpen(false)}
+    >
+      {item.text}
+      <motion.div
+        className={`
+          absolute 
+          -bottom-1 
+          left-0 
+          w-full 
+          h-0.5 
+          bg-gradient-to-r 
+          from-blue-400 
+          via-green-400 
+          to-red-500
+          ${activeSection === item.to ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}
+        `}
+        initial={false}
+        animate={{
+          opacity: activeSection === item.to ? 1 : 0,
+          transition: { duration: 0.3 }
+        }}
+        layoutId="activeSection"
+      />
+    </ScrollLink>
+  )
 
   return (
     <motion.nav
@@ -56,9 +121,10 @@ export default function Navbar() {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-20">
           <motion.h1 
-            className="text-3xl font-extrabold"
+            className="text-3xl font-extrabold cursor-pointer"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
+            onClick={scrollToTop}
           >
             <span className="bg-gradient-to-r from-blue-400 via-green-400 to-red-500 text-transparent bg-clip-text">Volunt</span>
             <span className="text-red-500">RED</span>
@@ -71,20 +137,7 @@ export default function Navbar() {
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <ScrollLink
-                  to={item.to}
-                  smooth={true}
-                  duration={1000}
-                  spy={true}
-                  activeClass="text-blue-400"
-                  className={`cursor-pointer transition-colors text-lg font-semibold ${
-                    activeSection === item.to 
-                      ? 'bg-gradient-to-r from-blue-400 to-green-400 text-transparent bg-clip-text' 
-                      : 'text-gray-300 hover:text-white'
-                  }`}
-                >
-                  {item.text}
-                </ScrollLink>
+                <NavLink item={item} />
               </motion.div>
             ))}
           </div>
@@ -113,19 +166,7 @@ export default function Navbar() {
                       exit={{ opacity: 0, x: 20 }}
                       transition={{ duration: 0.3 }}
                     >
-                      <ScrollLink
-                        to={item.to}
-                        smooth={true}
-                        duration={1000}
-                        className={`text-xl font-semibold transition-colors ${
-                          activeSection === item.to 
-                            ? 'bg-gradient-to-r from-blue-400 to-green-400 text-transparent bg-clip-text' 
-                            : 'text-gray-300 hover:text-white'
-                        }`}
-                        onClick={() => setIsOpen(false)}
-                      >
-                        {item.text}
-                      </ScrollLink>
+                      <NavLink item={item} isMobile={true} />
                     </motion.div>
                   ))}
                 </AnimatePresence>
