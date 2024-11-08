@@ -12,10 +12,12 @@ export const planes = [
       { text: "Certificados de participación", included: true },
       { text: "Seguimiento de horas", included: true },
     ],
-    buttonText: "Comenzar",
+    buttonText: "Pre-Registro",
+    type : "voluntario"
   },
   {
     title: "ONGs",
+    type : "ong",
     icon: Heart,
     price: "Gratis",
     description: "Para organizaciones sin fines de lucro.",
@@ -25,10 +27,11 @@ export const planes = [
       { text: "Reportes básicos", included: true },
       { text: "Soporte por correo", included: true },
     ],
-    buttonText: "Registrarse",
+    buttonText: "Pre-Registro",
   },
   {
     title: "ONGs Premium",
+    type : "ong",
     icon: Heart,
     price: 200,
     description: "Funciones exclusivas para ONGs.",
@@ -37,12 +40,15 @@ export const planes = [
       { text: "Reportes avanzados", included: true },
       { text: "Integración con CRM", included: true },
       { text: "Soporte prioritario", included: true },
+
     ],
     buttonText: "Actualizar",
+    showButton: false,
     popular: true,
   },
   {
     title: "Empresas",
+    type : "empresa",
     icon: Building,
     price: "Consultar",
     description: "Soluciones personalizadas para responsabilidad social corporativa.",
@@ -56,6 +62,7 @@ export const planes = [
   },
   {
     title: "Universidades",
+    type: "universidad",
     icon: GraduationCap,
     price: "Consultar",
     description: "Plataforma adaptada para instituciones educativas.",

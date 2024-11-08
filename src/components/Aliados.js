@@ -1,121 +1,116 @@
-import React from 'react';
-import { Box, useTheme, styled, Typography } from '@mui/material';
-import { Carousel } from 'react-responsive-carousel';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import 'react-responsive-carousel/lib/styles/carousel.min.css';
+"use client"
 
-const CustomBox = styled(Box)(({ theme }) => ({
-  width: '400px',
-  height: 'auto',  // Cambiado a auto para acomodar el texto y el carrusel
-  margin: 'auto',
-  backgroundColor: theme.palette.background.paper,
-  color: theme.palette.text.primary,
-  padding: theme.spacing(2),
-  borderRadius: theme.shape.borderRadius,
-  boxShadow: theme.shadows[1],
-  position: 'relative',
-  display: 'flex',
-  flexDirection: 'column', // Cambiado a columna para apilar texto y carrusel
-  alignItems: 'center',
-  justifyContent: 'center',
-}));
+import React from "react"
+import { Card } from "@/components/ui/card"
+import { motion, useAnimationControls } from "framer-motion"
+import { Handshake } from 'lucide-react'
 
-const CarouselImage = styled('img')(({ theme }) => ({
-  borderRadius: '10px',
-  width: '100%',
-  height: '100%',
-  objectFit: 'contain',
-  transition: 'transform 0.3s ease',
-  '&:hover': {
-    transform: 'scale(1.05)', 
+const items = [
+  {
+    icon: "/aliados/redODS.png",
+    title: "Red Internacional de Promotores ODS MX",
+    link: "https://promotoresods.org/",
   },
-}));
-
-const StyledArrowButton = styled('button')(({ theme }) => ({
-  background: theme.palette.background.default, 
-  color: theme.palette.text.secondary,
-  border: '1px solid', 
-  borderColor: theme.palette.divider,
-  cursor: 'pointer',
-  '&:hover': {
-    background: theme.palette.action.hover, 
-    color: theme.palette.text.primary, 
+  {
+    icon: "/aliados/globalShapers.png",
+    title: "Hub GDL Global Shapers",
+    link: "https://shapersgdl.framer.ai/",
   },
-  position: 'absolute',
-  zIndex: 1,
-  width: '30px',
-  height: '30px',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  borderRadius: '50%', 
-}));
 
-const Aliados = () => {
-  const theme = useTheme();
+]
 
-  const items = [
-    {
-      image: '../../aliados/redODS.png',
-      link: 'https://promotoresods.org/',
-    },
-    {
-      image: '../../aliados/globalShapers.png',
-      link: 'https://www.globalshapers.org/hubs',
+export default function Aliados() {
+  const controls = useAnimationControls()
+  const [width, setWidth] = React.useState(0)
+  const containerRef = React.useRef(null)
+
+  React.useEffect(() => {
+    if (containerRef.current) {
+      setWidth(containerRef.current.scrollWidth - containerRef.current.offsetWidth)
     }
-  ];
+  }, [])
+
+  React.useEffect(() => {
+    if (width > 0) {
+      controls.start({
+        x: -width,
+        transition: {
+          duration: 20,
+          ease: "linear",
+          repeat: Infinity,
+        },
+      })
+    }
+  }, [controls, width])
+
+  const duplicatedItems = [...items, ...items, ...items]
 
   return (
-    <CustomBox id="aliados">
-        <Typography variant="h3" component="div" color="primary.main" fontWeight="bold" sx={{ mb: 4, textAlign: 'center' }}>
-        Nuestros Aliados
-      </Typography>
-  
+    <div className="w-full bg-gradient-to-b from-gray-900 to-black p-8 font-['Poppins']">
+           <motion.h2 
+          className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold text-center mb-16"
+          initial={{ opacity: 0, y: -30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+        >
+          <span className="bg-gradient-to-r from-blue-400 via-green-400 to-red-500 text-transparent bg-clip-text">
+            Nuestros Aliados
+          </span>
+        </motion.h2>
 
-      <Carousel
-        showThumbs={false}
-        autoPlay
-        infiniteLoop
-        interval={2000}
-        showStatus={false}
-        stopOnHover
-        showIndicators={true}
-        renderArrowPrev={(onClickHandler, hasPrev) =>
-          hasPrev && (
-            <StyledArrowButton onClick={onClickHandler} style={{ top: '10px', left: '10px' }}>
-              <ArrowBackIosIcon fontSize="small" />
-            </StyledArrowButton>
-          )
-        }
-        renderArrowNext={(onClickHandler, hasNext) =>
-          hasNext && (
-            <StyledArrowButton onClick={onClickHandler} style={{ bottom: '10px', right: '10px' }}>
-              <ArrowForwardIosIcon fontSize="small" />
-            </StyledArrowButton>
-          )
-        }
+      <div className="w-full max-w-6xl mx-auto overflow-hidden" ref={containerRef}>
+        <motion.div
+          className="flex"
+          animate={controls}
+          style={{ width: `${duplicatedItems.length * 420}px` }}
+        >
+          {duplicatedItems.map((item, index) => (
+            <div key={index} className="flex-shrink-0 w-[400px] mx-2">
+              <a
+                href={item.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block h-full"
+              >
+                <div className="relative group">
+                  <div className="absolute inset-0 bg-blue-500/10 rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-300" />
+                  <Card className="relative overflow-hidden h-20 bg-gray-900/40 hover:bg-gray-900/60 border border-blue-500/20 rounded-2xl py-2 transition-all duration-300">
+                    <div className="flex items-center gap-4 px-6 h-full">
+                      <div className="flex-shrink-0 w-14 h-14 rounded-full overflow-hidden bg-white/5 p-1">
+                        <img
+                          src={item.icon}
+                          alt={item.title}
+                          className="w-full h-full object-contain"
+                        />
+                      </div>
+                      <div className="flex-grow min-w-0">
+                        <p className="text-lg sm:text-xl font-medium text-gray-100 truncate">
+                          {item.title}
+                        </p>
+                        <p className="text-sm text-gray-400 truncate">
+                          {new URL(item.link).hostname}
+                        </p>
+                      </div>
+                    </div>
+                  </Card>
+                </div>
+              </a>
+            </div>
+          ))}
+        </motion.div>
+      </div>
+
+      <motion.div 
+        className="flex items-center justify-center gap-4 text-xl sm:text-2xl text-gray-300 max-w-2xl mx-auto text-center mt-16"
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
       >
-        {items.map((item, index) => (
-          <Box
-            key={index}
-            component="a"
-            href={item.link}
-            target="_blank"
-            rel="noopener noreferrer"
-            sx={{
-              height: '100%',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-          >
-            <CarouselImage src={item.image} alt={`carousel-item-${index}`} />
-          </Box>
-        ))}
-      </Carousel>
-    </CustomBox>
-  );
-};
-
-export default Aliados;
+        <Handshake className="w-8 h-8 text-blue-400" />
+        <p>
+          Colaboramos con organizaciones líderes para crear un impacto positivo en la sociedad
+        </p>
+      </motion.div>
+    </div>
+  )
+}

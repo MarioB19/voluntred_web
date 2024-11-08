@@ -1,16 +1,14 @@
-import { Container } from '@mui/material';
+
 import Navbar from '../components/Navbar';
 import Inicio from '../components/Inicio';
 
 import Beneficios from '../components/Beneficios';
-import PreguntasFrecuentes from '../components/PreguntasFrecuentes';
+
 import Impacto from '../components/Impacto';
-import Equipo from '../components/Equipo';
-import Involucrate from '../components/Involucrate';
-import Contacto from '../components/Contacto';
-import Footer from '@/components/Footer';
-import Aliados from '@/components/Aliados';
+
 import Price from '@/components/Price';
+import Aliados from '@/components/Aliados';
+import Contacto from '@/components/Contacto';
 
 export default function Home({ toggleDarkMode, darkMode }) {
   return (
@@ -22,6 +20,8 @@ export default function Home({ toggleDarkMode, darkMode }) {
 <Beneficios></Beneficios>
 <Impacto></Impacto>
 <Price></Price>
+<Aliados></Aliados>
+<Contacto></Contacto>
     </div>
   );
 }
