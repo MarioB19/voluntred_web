@@ -19,6 +19,7 @@ export default function Home({ toggleDarkMode, darkMode }) {
 
 <Inicio></Inicio>
 <Beneficios></Beneficios>
+<Impacto></Impacto>
     </div>
   );
 }
