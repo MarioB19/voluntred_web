@@ -9,8 +9,11 @@ import Impacto from '../components/Impacto';
 import Price from '@/components/Price';
 import Aliados from '@/components/Aliados';
 import Contacto from '@/components/Contacto';
+import FAQ from '@/components/FAQ';
 
-export default function Home({ toggleDarkMode, darkMode }) {
+
+
+export default function Home() {
   return (
     <div>
 <Navbar>
@@ -21,7 +24,9 @@ export default function Home({ toggleDarkMode, darkMode }) {
 <Impacto></Impacto>
 <Price></Price>
 <Aliados></Aliados>
+<FAQ></FAQ>
 <Contacto></Contacto>
+
     </div>
   );
 }

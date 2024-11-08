@@ -16,12 +16,11 @@ import {
 const menuItems = [
   { text: 'Inicio', to: 'inicio' },
   { text: 'Beneficios', to: 'beneficios' },
-  { text: 'Preguntas Frecuentes', to: 'preguntas-frecuentes' },
   { text: 'Impacto', to: 'impacto' },
+  { text: 'Precios', to: 'precios' },
   { text: 'Aliados', to: 'aliados' },
-  { text: 'Nuestro Equipo', to: 'equipo' },
-  { text: 'Involúcrate', to: 'involucrate' },
-  { text: 'Contáctanos', to: 'contacto' },
+  { text: 'Preguntas Frecuentes', to: 'preguntas-frecuentes' },
+  { text: 'Contacto', to: 'contacto' },
 ]
 
 export default function Navbar() {
