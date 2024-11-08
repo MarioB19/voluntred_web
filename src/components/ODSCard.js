@@ -1,95 +1,63 @@
-import React from 'react';
-import Image from 'next/image';
-import { Box, Typography, useMediaQuery } from '@mui/material';
-import { styled, useTheme } from '@mui/system';
-
-const Card = styled(Box)(({ theme }) => ({
-  perspective: '1000px',
-  width: '100%',
-  '&:hover .inner': {
-    transform: 'rotateY(180deg)',
-  },
-}));
-
-const Inner = styled(Box)(({ theme, color }) => ({
-  position: 'relative',
-  width: '100%',
-  paddingTop: '100%', // Esto mantiene la relación de aspecto 1:1
-  textAlign: 'center',
-  transition: 'transform 0.6s',
-  transformStyle: 'preserve-3d',
-  borderRadius: '8px',
-  boxShadow: theme.shadows[3],
-  backgroundColor: color,
-}));
-
-const Face = styled(Box)({
-  position: 'absolute',
-  top: 0,
-  left: 0,
-  width: '100%',
-  height: '100%',
-  backfaceVisibility: 'hidden',
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  borderRadius: '8px',
-});
-
-const Front = styled(Face)({
-  overflow: 'hidden', // Asegura que la imagen no se desborde
-});
-
-const Back = styled(Face)(({ color }) => ({
-  flexDirection: 'column',
-  color: '#fff',
-  transform: 'rotateY(180deg)',
-  padding: '8px',
-  backgroundColor: color,
-}));
-
-const Title = styled('div')(({ theme, $isMobile }) => ({
-  fontSize: $isMobile ? '1rem' : '2rem',
-  fontWeight: 'bold',
-  textAlign: 'center',
-}));
-
-const Description = styled('div')(({ theme, $isMobile }) => ({
-  fontSize: $isMobile ? '0.5rem' : '1.2rem',
-  textAlign: 'center',
-  '& span': {
-    fontWeight: 'bold',
-  },
-}));
+import React from 'react'
+import { motion } from 'framer-motion'
+import { Card, CardContent } from "@/components/ui/card"
+import Image from 'next/image'
 
 const ODSCard = ({ color, image, title, description }) => {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-
   return (
-    <Card>
-      <Inner className="inner" color={color}>
-        <Front>
-          <Image
-            src={image}
-            alt={title}
-            fill
-            style={{ objectFit: 'cover' }}
-            loading="lazy"
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          />
-        </Front>
-        <Back color={color}>
-          <Title $isMobile={isMobile} component={Typography} variant="h6">
-            {title}
-          </Title>
-          <Description $isMobile={isMobile} component={Typography} variant="body2">
-            <span>Objetivo:</span> {description}
-          </Description>
-        </Back>
-      </Inner>
-    </Card>
-  );
-};
+    <div className="relative aspect-square perspective-1000">
+      <motion.div
+        className="w-full h-full preserve-3d cursor-pointer"
+        whileHover={{ rotateY: 180 }}
+        transition={{ duration: 0.6 }}
+      >
+        {/* Front of the card */}
+        <motion.div
+          className="absolute w-full h-full backface-hidden"
+          initial={{ rotateY: 0 }}
+          animate={{ rotateY: 0 }}
+        >
+          <Card className="w-full h-full overflow-hidden rounded-xl">
+            <CardContent className="p-0 flex flex-col items-center justify-between h-full">
+              <div className="relative w-full h-full">
+                <Image
+                  src={image}
+                  alt={title}
+                  layout="fill"
+                  objectFit="cover"
+                  className="w-full h-full"
+                  unoptimized={false}
+                />
+              </div>
+              <div 
+                className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-2"
+              >
+                <p className="text-xs sm:text-sm text-center text-white font-bold">{title}</p>
+              </div>
+            </CardContent>
+          </Card>
+        </motion.div>
 
-export default ODSCard;
+        {/* Back of the card */}
+        <motion.div
+          className="absolute w-full h-full backface-hidden"
+          initial={{ rotateY: 180 }}
+          animate={{ rotateY: 180 }}
+        >
+          <Card 
+            className="w-full h-full rounded-xl overflow-hidden backdrop-blur-sm"
+            style={{ backgroundColor: color }}
+          >
+            <CardContent className="p-4 flex items-center justify-center h-full">
+              <p className="text-xs sm:text-sm text-center text-white font-medium">
+                {description}
+              </p>
+            </CardContent>
+          </Card>
+        </motion.div>
+      </motion.div>
+    </div>
+  )
+}
+
+export default ODSCard
