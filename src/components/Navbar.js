@@ -19,6 +19,7 @@ const menuItems = [
   { text: 'Impacto', to: 'impacto' },
   { text: 'Precios', to: 'precios' },
   { text: 'Preguntas Frecuentes', to: 'preguntas-frecuentes' },
+  {text: 'Prototipo', to : 'prototipo'},
   { text: 'Contacto', to: 'contacto' },
 ]
 

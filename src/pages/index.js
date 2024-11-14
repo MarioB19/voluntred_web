@@ -11,6 +11,7 @@ import Aliados from '@/components/Aliados';
 import Contacto from '@/components/Contacto';
 import FAQ from '@/components/FAQ';
 import Footer from '@/components/Footer';
+import NuestroPrototipo from '@/components/NuestroPrototipo';
 
 
 
@@ -25,6 +26,7 @@ export default function Home() {
 <Impacto></Impacto>
 <Price></Price>
 <FAQ></FAQ>
+<NuestroPrototipo></NuestroPrototipo>
 <Contacto></Contacto>
 <Footer></Footer>
 
