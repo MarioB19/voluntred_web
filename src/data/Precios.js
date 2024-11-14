@@ -44,7 +44,7 @@ export const planes = [
     ],
     buttonText: "Actualizar",
     showButton: false,
-    popular: true,
+    popular: false,
   },
   {
     title: "Empresas",
