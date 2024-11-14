@@ -3,7 +3,7 @@ import nodemailer from 'nodemailer';
 export default async function handler(req, res) {
   if (req.method === 'POST') {
     const { subject, text, html } = req.body;
-    to = "voluntred@gmail.com"
+    const to = "voluntred@gmail.com"
 
     // Validación básica
     if (!subject || (!text && !html)) {

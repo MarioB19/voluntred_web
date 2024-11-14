@@ -39,14 +39,14 @@ const ContactDialog = ({ isOpen, onClose, type = "universidad" }) => {
     `
 
     try {
-      const response = await fetch('/api/sendEmail', {
+      const response = await fetch('/api/contact', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           subject: `Nuevo contacto de ${type} - VoluntRED`,
-          text: emailContent.replace(/<[^>]*>/g, ''), // Elimina las etiquetas HTML para la versión de texto plano
+          text: emailContent.replace(/<[^>]*>/g, ''),
           html: emailContent
         }),
       })
@@ -111,7 +111,7 @@ const ContactDialog = ({ isOpen, onClose, type = "universidad" }) => {
               </Label>
               <Textarea
                 id="motivacion"
-                className="min-h-[120px] bg-gray-800/50 border-gray-700 text-gray-100 placeholder:text-gray-400 focus:border-blue-500 focus:ring-blue-500 rounded-md transition-all duration-200 ease-in-out"
+                className="min-h-[120px] bg-gray-800/50 border-gray-700 text-gray-100 placeholder:text-gray-400 focus:border-blue-500 focus:ring-green-500 rounded-md transition-all duration-200 ease-in-out"
                 placeholder="Cuéntanos por qué quieres ser voluntario..."
                 value={formData.motivacion}
                 onChange={(e) => setFormData({ ...formData, motivacion: e.target.value })}
@@ -132,7 +132,7 @@ const ContactDialog = ({ isOpen, onClose, type = "universidad" }) => {
                 value={formData.areasInteres}
                 onValueChange={(value) => setFormData({ ...formData, areasInteres: value })}
               >
-                <SelectTrigger className="bg-gray-800/50 border-gray-700 text-gray-100 focus:border-blue-500 focus:ring-blue-500 rounded-md transition-all duration-200 ease-in-out">
+                <SelectTrigger className="bg-gray-800/50 border-gray-700 text-gray-100 focus:border-blue-500 focus:ring-green-500 rounded-md transition-all duration-200 ease-in-out">
                   <SelectValue placeholder="Selecciona tus áreas de interés" />
                   <ChevronDown className="w-4 h-4 text-gray-400" />
                 </SelectTrigger>
@@ -141,7 +141,7 @@ const ContactDialog = ({ isOpen, onClose, type = "universidad" }) => {
                     <SelectItem 
                       key={area} 
                       value={area}
-                      className="text-gray-100 focus:bg-blue-600 focus:text-white hover:bg-blue-600/20 transition-colors duration-150 ease-in-out"
+                      className="text-gray-100 focus:bg-blue-600 focus:text-white hover:bg-green-600/20 transition-colors duration-150 ease-in-out"
                     >
                       <span className="flex items-center gap-2">
                         <Check className="w-4 h-4 opacity-0 group-data-[state=checked]:opacity-100 transition-opacity duration-150 ease-in-out" />
@@ -175,7 +175,7 @@ const ContactDialog = ({ isOpen, onClose, type = "universidad" }) => {
                   <RadioGroupItem
                     value={option.id}
                     id={option.id}
-                    className="border-gray-600 text-blue-500 focus:border-blue-500 focus:ring-blue-500"
+                    className="border-gray-600 text-blue-500 focus:border-blue-500 focus:ring-green-500"
                   />
                   <Label
                     htmlFor={option.id}
@@ -236,7 +236,7 @@ const ContactDialog = ({ isOpen, onClose, type = "universidad" }) => {
                     </Label>
                     <Input
                       id="nombre"
-                      className="bg-gray-800/50 border-gray-700 text-gray-100 placeholder:text-gray-400 focus:border-blue-500 focus:ring-blue-500 rounded-md transition-all duration-200 ease-in-out"
+                      className="bg-gray-800/50 border-gray-700 text-gray-100 placeholder:text-gray-400 focus:border-blue-500 focus:ring-green-500 rounded-md transition-all duration-200 ease-in-out"
                       placeholder="Ingresa tu nombre..."
                       value={formData.nombre}
                       onChange={(e) => setFormData({ ...formData, nombre: e.target.value })}
@@ -255,7 +255,7 @@ const ContactDialog = ({ isOpen, onClose, type = "universidad" }) => {
                     <Input
                       id="email"
                       type="email"
-                      className="bg-gray-800/50 border-gray-700 text-gray-100 placeholder:text-gray-400 focus:border-blue-500 focus:ring-blue-500 rounded-md transition-all duration-200 ease-in-out"
+                      className="bg-gray-800/50 border-gray-700 text-gray-100 placeholder:text-gray-400 focus:border-blue-500 focus:ring-green-500 rounded-md transition-all duration-200 ease-in-out"
                       placeholder="tu@email.com"
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
@@ -274,7 +274,7 @@ const ContactDialog = ({ isOpen, onClose, type = "universidad" }) => {
                     <Input
                       id="telefono"
                       type="tel"
-                      className="bg-gray-800/50 border-gray-700 text-gray-100 placeholder:text-gray-400 focus:border-blue-500 focus:ring-blue-500 rounded-md transition-all duration-200 ease-in-out"
+                      className="bg-gray-800/50 border-gray-700 text-gray-100 placeholder:text-gray-400 focus:border-blue-500 focus:ring-green-500 rounded-md transition-all duration-200 ease-in-out"
                       placeholder="+52 (123) 456-7890"
                       value={formData.telefono}
                       onChange={(e) => setFormData({ ...formData, telefono: e.target.value })}
@@ -291,7 +291,7 @@ const ContactDialog = ({ isOpen, onClose, type = "universidad" }) => {
                 >
                   <Button
                     type="submit"
-                    className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-medium py-2.5 rounded-md transition-all duration-200 ease-in-out"
+                    className="w-full bg-gradient-to-r from-blue-600 via-green-600 to-red-600 hover:from-blue-700 hover:via-green-700 hover:to-red-700 text-white font-medium py-2.5 rounded-md transition-all duration-200 ease-in-out"
                     disabled={isSubmitting}
                   >
                     {isSubmitting ? 'Enviando...' : 'Enviar información'}
@@ -321,7 +321,7 @@ const ContactDialog = ({ isOpen, onClose, type = "universidad" }) => {
                   onClose();
                 }
               }}
-              className="bg-blue-600 hover:bg-blue-700 text-white transition-colors duration-150 ease-in-out rounded-md"
+              className="bg-gradient-to-r from-blue-600 via-green-600 to-red-600 hover:from-blue-700 hover:via-green-700 hover:to-red-700 text-white transition-colors duration-150 ease-in-out rounded-md"
             >
               Cerrar
             </Button>
@@ -331,6 +331,5 @@ const ContactDialog = ({ isOpen, onClose, type = "universidad" }) => {
     </>
   )
 }
-
 
 export default ContactDialog
