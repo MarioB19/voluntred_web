@@ -130,7 +130,7 @@ export default function Navbar() {
             <span className="text-red-500">RED</span>
           </motion.h1>
 
-          <div className="hidden md:flex space-x-6">
+          <div className="hidden md:flex space-x-6 items-center">
             {menuItems.map((item) => (
               <motion.div
                 key={item.text}
@@ -140,6 +140,13 @@ export default function Navbar() {
                 <NavLink item={item} />
               </motion.div>
             ))}
+            <Button
+              className="bg-gradient-to-r from-blue-500 via-green-500 to-red-500 text-white font-bold text-lg hover:opacity-90 transition-opacity rounded-full px-6 py-2"
+              onClick={() => window.open("https://voluntred-prototype.vercel.app/", "_blank")}
+            >
+
+              Ver Prototipo
+            </Button>
           </div>
 
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
@@ -171,6 +178,13 @@ export default function Navbar() {
                   ))}
                 </AnimatePresence>
               </nav>
+              <Button
+  className="mt-6 w-full bg-gradient-to-r from-blue-500 via-green-500 to-red-500 text-white font-bold text-lg hover:opacity-90 transition-opacity rounded-full px-6 py-2"
+  onClick={() => window.open("https://voluntred-prototype.vercel.app/", "_blank")}
+>
+  Ver Prototipo
+</Button>
+
             </SheetContent>
           </Sheet>
         </div>
