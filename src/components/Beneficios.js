@@ -53,16 +53,16 @@ const beneficios = {
 const Beneficios = () => {
   return (
     <section id="beneficios" className="min-h-screen bg-gradient-to-b from-gray-900 to-black p-8 pt-24 font-['Poppins']">
-           <motion.h2 
-          className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold text-center mb-16"
-          initial={{ opacity: 0, y: -30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-        >
-          <span className="bg-gradient-to-r from-blue-400 via-green-400 to-red-500 text-transparent bg-clip-text">
-            Beneficios
-          </span>
-        </motion.h2>
+      <motion.h2 
+        className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold text-center mb-16"
+        initial={{ opacity: 0, y: -30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+      >
+        <span className="bg-gradient-to-r from-blue-400 via-green-400 to-red-500 text-transparent bg-clip-text">
+          Beneficios
+        </span>
+      </motion.h2>
       <motion.div 
         className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-12 max-w-7xl mx-auto"
         initial="hidden"
@@ -78,37 +78,37 @@ const Beneficios = () => {
         <BeneficiosCard
           title="Voluntarios"
           benefits={beneficios.voluntarios}
-          icon={<HeartHandshake className="w-10 h-10" />}
+          Icon={HeartHandshake}
           color="from-green-400 to-green-600"
         />
         <BeneficiosCard
           title="Asociaciones"
           benefits={beneficios.asociaciones}
-          icon={<Building2 className="w-10 h-10" />}
+          Icon={Building2}
           color="from-blue-400 to-blue-600"
         />
         <BeneficiosCard
           title="Universitarios"
           benefits={beneficios.universitarios}
-          icon={<GraduationCap className="w-10 h-10" />}
+          Icon={GraduationCap}
           color="from-purple-400 to-purple-600"
         />
         <BeneficiosCard
           title="Empleados"
           benefits={beneficios.empleados}
-          icon={<Briefcase className="w-10 h-10" />}
+          Icon={Briefcase}
           color="from-orange-400 to-orange-600"
         />
         <BeneficiosCard
           title="Empresas"
           benefits={beneficios.empresas}
-          icon={<Building className="w-10 h-10" />}
+          Icon={Building}
           color="from-red-400 to-red-600"
         />
         <BeneficiosCard
           title="Universidades"
           benefits={beneficios.universidades}
-          icon={<School className="w-10 h-10" />}
+          Icon={School}
           color="from-yellow-400 to-yellow-600"
         />
       </motion.div>
@@ -116,7 +116,7 @@ const Beneficios = () => {
   )
 }
 
-const BeneficiosCard = ({ title, benefits, icon, color }) => {
+const BeneficiosCard = ({ title, benefits, Icon, color }) => {
   return (
     <motion.div
       variants={{
@@ -132,7 +132,7 @@ const BeneficiosCard = ({ title, benefits, icon, color }) => {
         <CardHeader>
           <div className="flex items-center gap-4">
             <div className="bg-white p-2 sm:p-3 rounded-full shrink-0">
-              {React.cloneElement(icon, { className: "w-8 h-8 sm:w-12 sm:h-12" })}
+              <Icon className="w-8 h-8 sm:w-12 sm:h-12 text-gray-900" />
             </div>
             <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white">{title}</h3>
           </div>
