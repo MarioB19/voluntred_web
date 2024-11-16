@@ -1,6 +1,6 @@
 "use client"
 
-import { useRef, useEffect } from 'react'
+import { useRef, useEffect, useState } from 'react'
 import { motion, useInView, useAnimation } from 'framer-motion'
 import Navbar from '../components/Navbar'
 import Inicio from '../components/Inicio'
@@ -14,8 +14,18 @@ import NuestroPrototipo from '@/components/NuestroPrototipo'
 
 const Section = ({ children, id }) => {
   const ref = useRef(null)
-  const isInView = useInView(ref, { once: false, amount: 0.3 })
+  const isInView = useInView(ref, { once: false, amount: 0.2 })
   const controls = useAnimation()
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768)
+    }
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
 
   useEffect(() => {
     if (isInView) {
@@ -25,24 +35,32 @@ const Section = ({ children, id }) => {
     }
   }, [isInView, controls])
 
+  const variants = isMobile ? {
+    hidden: { opacity: 0.8 },
+    visible: { 
+      opacity: 1,
+      transition: { duration: 0.4 }
+    }
+  } : {
+    hidden: { opacity: 0.8, y: 20 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: { 
+        duration: 0.5, 
+        ease: "easeOut"
+      }
+    }
+  }
+
   return (
     <motion.section
       ref={ref}
       id={id}
       initial="hidden"
       animate={controls}
-      variants={{
-        hidden: { opacity: 0.6, scale: 0.98 },
-        visible: { 
-          opacity: 1, 
-          scale: 1,
-          transition: { 
-            duration: 0.5, 
-            ease: "easeOut"
-          }
-        }
-      }}
-      className="min-h-screen py-16"
+      variants={variants}
+      className="min-h-screen py-12"
     >
       {children}
     </motion.section>
