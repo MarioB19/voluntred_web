@@ -15,8 +15,8 @@ export default function NuestroPrototipo() {
   return (
     <section id ="prototipo" className="bg-gradient-to-b from-gray-900 to-black py-16 sm:py-24 px-4 sm:px-6 lg:px-8 font-['Poppins']">
       <div className="max-w-6xl mx-auto">
-        <motion.h2 
-          className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-center mb-8 sm:mb-12"
+      <motion.h2 
+          className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold text-center mb-16"
           initial={{ opacity: 0, y: -30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
